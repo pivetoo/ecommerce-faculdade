@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Ecommerce.Repositorio\Ecommerce.Repositorio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
 </Project>
