@@ -19,7 +19,8 @@ namespace Ecommerce.Dominio.Services
 
         public async Task<bool> CriarFAQ(FAQ faq)
         {
-            faq.CriadoEm = DateTime.Now;
+            DateTime localDateTime = DateTime.Now;
+            DateTime utcDateTime = localDateTime.ToUniversalTime();
             await _faqRepository.Incluir(faq);
             return true;
         }

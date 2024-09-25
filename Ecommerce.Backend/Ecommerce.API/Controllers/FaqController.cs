@@ -10,10 +10,35 @@ namespace Ecommerce.API.Controllers
     public class FAQController : ControllerBase
     {
         private readonly FaqService _faqService;
+        private readonly IWebHostEnvironment _env;
 
-        public FAQController(FaqService faqService)
+        public FAQController(FaqService faqService, IWebHostEnvironment env)
         {
             _faqService = faqService;
+            _env = env;
+        }
+
+        [HttpPost("UploadImage")]
+        public async Task<IActionResult> UploadImage([FromForm] IFormFile image)
+        {
+            if (image == null || image.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
+            if (!Directory.Exists(uploadsFolder))
+                Directory.CreateDirectory(uploadsFolder);
+
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+            var filePath = Path.Combine(uploadsFolder, fileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await image.CopyToAsync(fileStream);
+            }
+
+            var imageUrl = $"{Request.Scheme}://{Request.Host}/uploads/{fileName}";
+
+            return Ok(new { imageUrl });
         }
 
         [Authorize(Roles = "Admin")]
