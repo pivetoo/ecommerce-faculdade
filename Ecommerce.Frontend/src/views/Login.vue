@@ -2,14 +2,15 @@
   <div class="login-background">
     <div class="login-container">
       <div class="login-card">
-        <h2>Login</h2>
+        <h2>Seja Bem-Vindo(a)</h2>
+        <p>Faça login com seu email e senha para acessar a plataforma.</p>
         <form @submit.prevent="handleLogin">
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email">Email:</label>
             <input type="email" id="email" v-model="email" required>
           </div>
           <div class="form-group">
-            <label for="senha">Senha</label>
+            <label for="senha">Senha:</label>
             <input type="password" id="senha" v-model="senha" required>
           </div>
           <button type="submit">Login</button>
@@ -63,6 +64,13 @@ export default {
 </script>
 
 <style scoped>
+
+.h2 {
+  font-weight: bold;
+  font-size: 1.75rem;
+  font-family: Arial, sans-serif;
+}
+
 .login-background {
   background-image: url('../imagens/background.jpeg');
   background-size: cover;
@@ -93,6 +101,19 @@ export default {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   width: 60%;
   max-width: 500px;
+}
+
+.login-card h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.75rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-card p {
+  text-align: center;
+  font-size: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .form-group {
