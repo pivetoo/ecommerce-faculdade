@@ -1,4 +1,5 @@
 <template>
+  <div class="container">
   <div class="login-container">
     <h2>Seja Bem-Vindo(a)</h2>
     <form @submit.prevent="handleSubmit">
@@ -10,9 +11,12 @@
         <label for="password">Senha:</label>
         <input type="password" id="password" v-model="password" required>
       </div>
-      <a href="#" class="forgot-password">Esqueci Minha Senha</a>
       <button type="submit">Fazer Login</button>
+      <p class="esqueci-senha">
+      <router-link to="/recuperarSenha" class="forgot-password">Esqueci Minha Senha</router-link>
+      </p>
     </form>
+  </div>
   </div>
 </template>
 
@@ -39,15 +43,15 @@ export default {
 </script>
 
 <style scoped>
-body {
+.container {
     font-family: Arial, sans-serif;
-    background-image: url("@/imagens/background.jpeg");
+    background-image: url("../imagens/background.jpeg");
     background-size: cover;
     margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height:100vh;
 }
   
 .login-container {
@@ -83,14 +87,16 @@ input[type="password"] {
     border-radius: 4px;
 }
   
-.forgot-password {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    color: #0077cc;
-    text-decoration: none;
+.esqueci-senha {
+      text-align: center;
+      margin-top: 10px;
 }
   
+.esqueci-senha a {
+      color: #0077cc;
+      text-decoration: none;
+  }
+
 button {
     width: 100%;
     padding: 10px;
