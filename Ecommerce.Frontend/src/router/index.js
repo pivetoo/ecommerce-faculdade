@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../views/Login.vue';
-import RecuperarSenha from  '../views/RecuperarSenha.vue';
+import RecuperarSenha from  '../views/CriarConta.vue';
 import Home from '../views/Home.vue';
 import CriarConta from '../views/CriarConta.vue';
 
@@ -16,14 +16,9 @@ const routes = [
     component: Login
   },
   {
-    path: "/recuperarSenha",
-    name: "RecuperarSenha",
-    component: RecuperarSenha
-  },
-  {
-    path: "/criarConta",
+    path: "/criar-conta",
     name: "CriarConta",
-    component: CriarConta
+    component: RecuperarSenha
   }
 ];
 

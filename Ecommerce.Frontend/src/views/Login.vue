@@ -15,8 +15,8 @@
           </div>
           <button type="submit">Login</button>
         </form>
-        <p class="esqueci-senha" />
-        <router-link to="/recuperarSenha" class="forgot-senha">Esqueci Minha Senha</router-link>
+        <p class="criar-conta" />
+        <router-link to="/criar-conta" class="forgot-senha">Criar uma conta</router-link>
       </div>
     </div>
   </div>
@@ -150,12 +150,12 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-.esqueci-senha {
+.criar-conta {
   text-align: center;
   margin-top: 10px;
 }
   
-.esqueci-senha a {
+.criar-conta a {
   color: #0077cc;
   text-decoration: none;
 }
