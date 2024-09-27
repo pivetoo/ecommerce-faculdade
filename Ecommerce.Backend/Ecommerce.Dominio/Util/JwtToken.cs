@@ -17,7 +17,7 @@ namespace Ecommerce.Dominio.Util
             var claims = new[]
             {
             new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-            new Claim(ClaimTypes.Name, usuario.Email),
+            new Claim(ClaimTypes.Name, usuario.Nome),
             new Claim(ClaimTypes.Role, usuario.IsAdmin ? "Admin" : "User")
         };
 
