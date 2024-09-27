@@ -3,28 +3,32 @@
     <div class="register-container">
       <div class="register-card">
         <h2>Criar Conta</h2>
-        <p>Preencha os campos abaixo para criar uma nova conta.</p>
+        <p><b>Preencha os campos abaixo para criar uma nova conta.</b></p>
         <form @submit.prevent="handleRegister">
-          <div class="form-group">
+          <div class="form-group" :class="{ 'has-error': nomeErro }">
             <label for="nome">Nome:</label>
             <input type="text" id="nome" v-model="nome" required>
+            <span v-if="nomeErro" class="error-message">Nome é obrigatório</span>
           </div>
-          <div class="form-group">
+          <div class="form-group" :class="{ 'has-error': emailErro }">
             <label for="email">Email:</label>
             <input type="email" id="email" v-model="email" required>
+            <span v-if="emailErro" class="error-message">Email inválido</span>
           </div>
-          <div class="form-group">
+          <div class="form-group" :class="{ 'has-error': senhaErro }">
             <label for="senha">Senha:</label>
             <input type="password" id="senha" v-model="senha" required>
+            <span v-if="senhaErro" class="error-message">A senha deve ter no mínimo 6 caracteres</span>
           </div>
-          <div class="form-group">
+          <div class="form-group" :class="{ 'has-error': confirmarSenhaErro }">
             <label for="confirmarSenha">Confirmar Senha:</label>
             <input type="password" id="confirmarSenha" v-model="confirmarSenha" required>
+            <span v-if="confirmarSenhaErro" class="error-message">As senhas não coincidem</span>
           </div>
-          <button type="submit">Criar Conta</button>
+          <button type="submit" :disabled="isSubmitting">Criar Conta</button>
         </form>
         <p class="ja-tem-conta">Já tem uma conta?</p>
-        <router-link to="/login" class="login-link">Faça login aqui</router-link>
+        <router-link to="/" class="login-link">Faça login aqui</router-link>
       </div>
     </div>
   </div>
@@ -41,15 +45,34 @@ export default {
     const email = ref('');
     const senha = ref('');
     const confirmarSenha = ref('');
+    const isSubmitting = ref(false);
+    const nomeErro = ref(false);
+    const emailErro = ref(false);
+    const senhaErro = ref(false);
+    const confirmarSenhaErro = ref(false);
     const router = useRouter();
 
-    const handleRegister = async () => {
-      try {
-        if (senha.value !== confirmarSenha.value) {
-          alert('As senhas não coincidem');
-          return;
-        }
+    const validarFormulario = () => {
+      let valid = true;
+      nomeErro.value = !nome.value;
+      emailErro.value = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
+      senhaErro.value = senha.value.length < 6;
+      confirmarSenhaErro.value = senha.value !== confirmarSenha.value;
 
+      if (nomeErro.value || emailErro.value || senhaErro.value || confirmarSenhaErro.value) {
+        valid = false;
+      }
+
+      return valid;
+    };
+
+    const handleRegister = async () => {
+      if (!validarFormulario()) {
+        return;
+      }
+
+      try {
+        isSubmitting.value = true;
         const response = await axios.post('https://localhost:7172/api/Usuario', {
           nome: nome.value,
           email: email.value,
@@ -64,13 +87,21 @@ export default {
         } else {
           console.error('Erro desconhecido:', error.message);
         }
+      } finally {
+        isSubmitting.value = false;
       }
     };
+
     return {
       nome,
       email,
       senha,
       confirmarSenha,
+      isSubmitting,
+      nomeErro,
+      emailErro,
+      senhaErro,
+      confirmarSenhaErro,
       handleRegister
     };
   }
@@ -104,44 +135,37 @@ export default {
 
 .register-card {
   background-color: white;
-  padding: 50px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 60%;
-  max-width: 600px;
-}
-
-.register-card h2 {
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 500px;
   text-align: center;
-  font-weight: bold;
-  font-size: 1.75rem;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.register-card p {
-  text-align: center;
-  font-size: 1rem;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 .form-group {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
-label {
+.has-error input {
+  border-color: #ff4d4d;
+}
+
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.875rem;
+  margin-top: 4px;
   display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
+  text-align: left;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  padding: 12px;
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  box-sizing: border-box;
+  border-radius: 4px;
 }
 
 button[type="submit"] {
@@ -150,7 +174,7 @@ button[type="submit"] {
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -159,17 +183,20 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
+button[disabled] {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
 .ja-tem-conta {
-  text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .login-link {
-  display: block;
-  text-align: center;
   color: #0077cc;
   text-decoration: none;
   margin-top: 10px;
+  display: block;
 }
 
 .login-link:hover {
