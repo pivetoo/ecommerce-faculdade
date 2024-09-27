@@ -44,28 +44,28 @@ export default {
     const router = useRouter();
 
     const handleRegister = async () => {
-    try {
-      if (senha.value !== confirmarSenha.value) {
-        alert('As senhas não coincidem');
-        return;
-      }
+      try {
+        if (senha.value !== confirmarSenha.value) {
+          alert('As senhas não coincidem');
+          return;
+        }
 
-      const response = await axios.post('https://localhost:7172/api/Usuario', {
-        nome: nome.value,
-        email: email.value,
-        senha: senha.value
-      });
+        const response = await axios.post('https://localhost:7172/api/Usuario', {
+          nome: nome.value,
+          email: email.value,
+          senha: senha.value
+        });
 
-      alert('Conta criada com sucesso!');
-      router.push('/login');
-    } catch (error) {
-      if (error.response) {
-        console.error('Registro falhou:', error.response.data);
-      } else {
-        console.error('Erro desconhecido:', error.message);
+        alert('Conta criada com sucesso!');
+        router.push('/login');
+      } catch (error) {
+        if (error.response) {
+          console.error('Registro falhou:', error.response.data);
+        } else {
+          console.error('Erro desconhecido:', error.message);
+        }
       }
-    }
-  };
+    };
     return {
       nome,
       email,
@@ -98,7 +98,7 @@ export default {
 .register-container {
   display: flex;
   justify-content: center;
-  align-items: center;    
+  align-items: center;
   width: 100%;
 }
 
@@ -108,7 +108,7 @@ export default {
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   width: 60%;
-  max-width: 500px;
+  max-width: 600px;
 }
 
 .register-card h2 {
@@ -147,7 +147,7 @@ input[type="password"] {
 button[type="submit"] {
   width: 100%;
   padding: 12px;
-  background-color: #007bff; 
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;

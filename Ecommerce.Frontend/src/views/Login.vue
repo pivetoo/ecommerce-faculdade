@@ -100,7 +100,7 @@ export default {
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   width: 60%;
-  max-width: 500px;
+  max-width: 600px;
 }
 
 .login-card h2 {
