@@ -12,15 +12,18 @@
             </div>
         </div>
     </div>
+    <ChatbotWidget />
 </template>
 
 <script>
 import Sidebar from '@/components/Sidebar.vue';
+import ChatbotWidget from '@/components/ChatbotWidget.vue';
 
 export default {
     name: 'ChatbotContent',
     components: {
         Sidebar,
+        ChatbotWidget
     },
 };
 </script>

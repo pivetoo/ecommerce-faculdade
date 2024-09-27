@@ -95,6 +95,7 @@
           </div>
         </div>
       </div>
+      <ChatbotWidget />
     </div>
   </div>
 </template>
@@ -102,12 +103,14 @@
 <script>
 import Sidebar from '@/components/Sidebar.vue';
 import DoughnutChart from '@/components/DoughnutChart.vue';
+import ChatbotWidget from '@/components/ChatbotWidget.vue';
 
 export default {
   name: "HomePage",
   components: {
     Sidebar,
     DoughnutChart,
+    ChatbotWidget
   },
   data() {
     return {

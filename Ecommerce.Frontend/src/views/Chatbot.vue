@@ -1,22 +1,19 @@
 <template>
     <div class="d-flex">
         <Sidebar />
-        <div class="faq p-4 flex-grow-1">
-            <h1 class="page-title">Faq</h1>
+        <div class="chatbot p-4 flex-grow-1">
+            <h1 class="page-title">Chatbot</h1>
         </div>
     </div>
-    <ChatbotWidget />
 </template>
 
 <script>
 import Sidebar from '@/components/Sidebar.vue';
-import ChatbotWidget from '@/components/ChatbotWidget.vue';
 
 export default {
-    name: 'Faq',
+    name: 'Chatbot',
     components: {
         Sidebar,
-        ChatbotWidget
     },
 };
 </script>

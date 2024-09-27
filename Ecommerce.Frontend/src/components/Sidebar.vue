@@ -8,11 +8,11 @@
           <router-link to="/dashboard" class="nav-link py-2">
             <span class="material-symbols-outlined">grid_view</span>
           </router-link>
-          <router-link to="/chat-content" class="nav-link py-2">
-            <span class="material-symbols-outlined">smart_toy</span>
-          </router-link>
           <router-link to="/faq" class="nav-link py-2">
             <span class="material-symbols-outlined">help</span>
+          </router-link>
+          <router-link to="/chat-content" class="nav-link py-2">
+            <span class="material-symbols-outlined">smart_toy</span>
           </router-link>
           <router-link to="/chat-bot" class="nav-link py-2">
             <span class="material-symbols-outlined">chat</span>
