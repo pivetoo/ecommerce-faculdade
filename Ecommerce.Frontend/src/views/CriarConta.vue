@@ -135,16 +135,17 @@ export default {
 
 .register-card {
   background-color: white;
-  padding: 40px;
+  padding: 20px; /* Reduzi o padding */
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   width: 100%;
-  max-width: 500px;
+  max-width: 500px; /* Reduzi a largura máxima */
   text-align: center;
+  height: auto; /* Removi a altura fixa */
 }
 
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 15px; /* Reduzi o espaçamento entre os campos */
 }
 
 .has-error input {
@@ -153,7 +154,7 @@ export default {
 
 .error-message {
   color: #ff4d4d;
-  font-size: 0.875rem;
+  font-size: 0.75rem; /* Diminuí o tamanho da fonte do erro */
   margin-top: 4px;
   display: block;
   text-align: left;
@@ -163,14 +164,14 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  padding: 10px;
+  padding: 8px; /* Reduzi o padding */
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 button[type="submit"] {
   width: 100%;
-  padding: 12px;
+  padding: 10px; /* Reduzi o padding */
   background-color: #007bff;
   color: white;
   border: none;
@@ -189,13 +190,13 @@ button[disabled] {
 }
 
 .ja-tem-conta {
-  margin-top: 15px;
+  margin-top: 10px; /* Reduzi o espaçamento superior */
 }
 
 .login-link {
   color: #0077cc;
   text-decoration: none;
-  margin-top: 10px;
+  margin-top: 8px; /* Reduzi o espaçamento superior */
   display: block;
 }
 
