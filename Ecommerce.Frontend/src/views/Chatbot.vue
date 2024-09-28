@@ -2,7 +2,7 @@
     <div class="d-flex">
         <Sidebar />
         <div class="container chatbot-container mt-5">
-            <h2 class="chatbot-title">Chatbot</h2>
+            <h2 class="chatbot-title">Chatbot</h2> 
             <div class="chat-container">
                 <div class="chat-messages">
                     <div v-for="(message, index) in messages" :key="index"
@@ -17,9 +17,11 @@
                         <i class="fas fa-paper-plane"></i> Enviar
                     </button>
                 </div>
-            </div>
-            <div class="mt-4">
-                <button @click="openModal" class="btn btn-secondary">Adicionar Mensagem</button>
+
+                <div class="mt-4 d-flex justify-content-center">
+                    <button @click="openModal" class="btn btn-secondary mr-3">Adicionar Mensagem</button>
+                    <button @click="openContentManager" class="btn btn-danger">Gerenciar Conteúdos</button>
+                </div>
             </div>
 
             <div v-if="showModal" class="modal fade show d-block" tabindex="-1">
@@ -35,6 +37,7 @@
                                 <select v-model="selectedType" id="type" class="form-control">
                                     <option value="system">System</option>
                                     <option value="user">User</option>
+                                    <option value="assistant">Assistant</option>
                                 </select>
                             </div>
                             <div class="form-group mt-3">
@@ -46,6 +49,34 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" @click="closeModal">Fechar</button>
                             <button type="button" class="btn btn-primary" @click="feedChatbot">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="showContentManager" class="modal fade show d-block" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Gerenciar Conteúdos</h5>
+                            <button type="button" class="btn-close" @click="closeContentManager"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>Conteúdos:</label>
+                                <ul v-if="contents.length > 0" class="list-group">
+                                    <li v-for="content in contents" :key="content.id" class="list-group-item">
+                                        <input type="checkbox" v-model="selectedContents" :value="content.id">
+                                        {{ content.content }} ({{ content.role }})
+                                    </li>
+                                </ul>
+                                <p v-else>Nenhum conteúdo disponível.</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" @click="deleteSelectedContents">Excluir
+                                Selecionados</button>
+                            <button type="button" class="btn btn-secondary" @click="closeContentManager">Fechar</button>
                         </div>
                     </div>
                 </div>
@@ -68,8 +99,11 @@ export default {
             newMessage: '',
             messages: [],
             showModal: false,
+            showContentManager: false,
             selectedType: 'system',
             newFeedMessage: '',
+            contents: [],
+            selectedContents: []
         };
     },
     methods: {
@@ -102,9 +136,9 @@ export default {
             if (this.newFeedMessage.trim() === '') return;
 
             try {
-                const response = await axios.post('https://localhost:7172/api/Chatbot/alimentar', {
-                    type: this.selectedType,
-                    message: this.newFeedMessage,
+                const response = await axios.post('https://localhost:7172/api/ChatbotContent', {
+                    role: this.selectedType,
+                    content: this.newFeedMessage,
                 });
 
                 console.log('Chatbot alimentado com sucesso:', response.data);
@@ -115,9 +149,43 @@ export default {
             this.closeModal();
         },
         resetModalFields() {
-            this.selectedType = 'user';
+            this.selectedType = 'system';
             this.newFeedMessage = '';
         },
+        async openContentManager() {
+            this.showContentManager = true;
+            try {
+                const response = await axios.get('https://localhost:7172/api/ChatbotContent');
+                console.log("Resposta completa da API:", response);
+                console.log("Dados retornados:", response.data.$values);
+
+                if (Array.isArray(response.data.$values)) {
+                    this.contents = response.data.$values;
+                } else {
+                    console.error('Formato inesperado dos dados');
+                }
+            } catch (error) {
+                console.error('Erro ao listar conteúdos:', error);
+            }
+        },
+        closeContentManager() {
+            this.showContentManager = false;
+            this.selectedContents = [];
+        },
+        async deleteSelectedContents() {
+            if (this.selectedContents.length === 0) return;
+
+            try {
+                await Promise.all(this.selectedContents.map(async (contentId) => {
+                    await axios.delete(`https://localhost:7172/api/ChatbotContent/${contentId}`);
+                }));
+
+                this.contents = this.contents.filter(content => !this.selectedContents.includes(content.id));
+                this.selectedContents = [];
+            } catch (error) {
+                console.error('Erro ao excluir conteúdos:', error);
+            }
+        }
     },
 };
 </script>
@@ -181,6 +249,10 @@ export default {
 .chat-input input {
     flex-grow: 1;
     border-radius: 5px;
+}
+
+.mt-4 .btn+.btn {
+    margin-left: 15px;
 }
 
 .send-button {
