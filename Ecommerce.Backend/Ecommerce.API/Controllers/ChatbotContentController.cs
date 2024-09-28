@@ -16,7 +16,7 @@ namespace Ecommerce.API.Controllers
             _chatBotService = chatBotService;
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> AdicionarConteudo(ChatbotContent content)
         {
@@ -24,7 +24,7 @@ namespace Ecommerce.API.Controllers
             return Ok(adicionar);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> ListarConteudos()
         {
@@ -32,7 +32,7 @@ namespace Ecommerce.API.Controllers
             return Ok(listar);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> AtualizarConteudo(long id, ChatbotContent content)
         {
@@ -40,7 +40,7 @@ namespace Ecommerce.API.Controllers
             return Ok(content);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> ExcluirConteudo(long id)
         {

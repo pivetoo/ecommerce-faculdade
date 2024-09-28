@@ -41,7 +41,7 @@ namespace Ecommerce.API.Controllers
             return Ok(new { imageUrl });
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CriarFAQ(FAQ faq)
         {
@@ -49,7 +49,7 @@ namespace Ecommerce.API.Controllers
             return Ok(criar);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         public async Task<IActionResult> ListarTodosFAQs()
         {
@@ -57,7 +57,7 @@ namespace Ecommerce.API.Controllers
             return Ok(faqs);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> ConsultarFAQPorId(long id)
         {
@@ -65,7 +65,7 @@ namespace Ecommerce.API.Controllers
             return Ok(faq);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> AtualizarFAQ(long id, FAQ faq)
         {
@@ -73,7 +73,7 @@ namespace Ecommerce.API.Controllers
             return Ok(atualizar);
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<IActionResult> RemoverFAQ(long id)
         {
