@@ -11,7 +11,7 @@
       </p>
       <div class="row mt-5">
         <div class="col-md-6 d-flex justify-content-center align-items-center">
-          <img src="/src/imagens/Tray_logo.jpeg" class="img-fluid rounded img-950" alt="Sobre o Projeto">
+          <img src="/src/imagens/Tray_logo.jpg" class="img-fluid rounded img-950" alt="Sobre o Projeto">
         </div>
         <div class="col-md-6">
           <h3>Objetivos</h3>
@@ -22,7 +22,7 @@
           </p>
           <h3>Funcionalidades</h3>
           <ul>
-            <li>Gestão de FAQs</li>
+            <li>Gestão de FAQs </li>
             <li>Chat-Bot integrado para suporte</li>
             <li>Aumento do Ticket médio de forma não intruisva</li>
             <li>Interface amigável e responsiva</li>
