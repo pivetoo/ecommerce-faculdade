@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Dominio", "Ecommerce.Dominio\Ecommerce.Dominio.csproj", "{EBA7DD72-6623-451A-A2F6-FF89D92AAEF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Dominio", "Ecommerce.Dominio\Ecommerce.Dominio.csproj", "{EBA7DD72-6623-451A-A2F6-FF89D92AAEF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.Repositorio", "Ecommerce.Repositorio\Ecommerce.Repositorio.csproj", "{5A33242E-1CEB-49B7-8CFE-1F9C570A736D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.Repositorio", "Ecommerce.Repositorio\Ecommerce.Repositorio.csproj", "{5A33242E-1CEB-49B7-8CFE-1F9C570A736D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.API", "Ecommerce.API\Ecommerce.API.csproj", "{EE8DBE92-CAAF-41B0-A662-D421BD0C8B98}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.UnitTests", "Ecommerce.UnitTests\Ecommerce.UnitTests.csproj", "{46C9EAA6-C036-485E-8C09-E0BD0BEB2B7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.API", "Ecommerce.API\Ecommerce.API.csproj", "{EE8DBE92-CAAF-41B0-A662-D421BD0C8B98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{EE8DBE92-CAAF-41B0-A662-D421BD0C8B98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE8DBE92-CAAF-41B0-A662-D421BD0C8B98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE8DBE92-CAAF-41B0-A662-D421BD0C8B98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46C9EAA6-C036-485E-8C09-E0BD0BEB2B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46C9EAA6-C036-485E-8C09-E0BD0BEB2B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46C9EAA6-C036-485E-8C09-E0BD0BEB2B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46C9EAA6-C036-485E-8C09-E0BD0BEB2B7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
