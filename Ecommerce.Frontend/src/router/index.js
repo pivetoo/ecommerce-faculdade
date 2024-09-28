@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../views/Login.vue';
 import CriarConta from '../views/CriarConta.vue';
 import Homepage from '../views/Homepage.vue';
-import ChatbotContent from '../views/ChatbotContent.vue';
 import Faq from '../views/Faq.vue';
 import Perfil from '../views/Perfil.vue';
 import Ajuda from '../views/Ajuda.vue';
@@ -23,11 +22,6 @@ const routes = [
     path: "/dashboard",
     name: "Dashboard",
     component: Homepage
-  },
-  {
-    path: "/chat-content",
-    name: "ChatbotContent",
-    component: ChatbotContent
   },
   {
     path: "/faq",
@@ -57,5 +51,3 @@ const router = createRouter({
 });
 
 export default router;
-
-
