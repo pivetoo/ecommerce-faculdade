@@ -17,13 +17,13 @@
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="https://via.placeholder.com/800x300" class="d-block w-100" alt="Slide 1">
+            <img src="@/assets/carroussel1.jpg" class="d-block w-100" alt="Slide 1">
           </div>
           <div class="carousel-item">
-            <img src="https://via.placeholder.com/800x300" class="d-block w-100" alt="Slide 2">
+            <img src="@/assets/carroussel2.jpg" class="d-block w-100" alt="Slide 2">
           </div>
           <div class="carousel-item">
-            <img src="https://via.placeholder.com/800x300" class="d-block w-100" alt="Slide 3">
+            <img src="@/assets/carroussel3.jpg" class="d-block w-100" alt="Slide 3">
           </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -164,7 +164,7 @@ export default {
 
 .carousel-item img {
   object-fit: cover;
-  height: 300px;
+  height: 400px;
   border-radius: 20px;
 }
 
