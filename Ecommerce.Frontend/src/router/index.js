@@ -5,7 +5,7 @@ import Homepage from '../views/Homepage.vue';
 import ChatbotContent from '../views/ChatbotContent.vue';
 import Faq from '../views/Faq.vue';
 import Perfil from '../views/Perfil.vue';
-import Ajuda from '../views/Ajuda.vue';
+import Sobre from '../views/Sobre.vue';
 import Chatbot from '../views/Chatbot.vue';
 
 const routes = [
@@ -40,9 +40,9 @@ const routes = [
     component: Perfil
   },
   {
-    path: "/ajuda",
-    name: "Ajuda",
-    component: Ajuda
+    path: "/sobre",
+    name: "Sobre",
+    component: Sobre
   },
   {
     path: "/chat-bot",
