@@ -6,6 +6,7 @@
       <h1 class="welcome-message">Olá, {{ nome }} 👋</h1>
       <p class="welcome-submessage">É bom vê-lo(a) novamente.</p>
 
+      <br>
       <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
@@ -164,7 +165,7 @@ export default {
 
 .carousel-item img {
   object-fit: cover;
-  height: 400px;
+  height: 350px;
   border-radius: 20px;
 }
 
