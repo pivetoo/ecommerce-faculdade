@@ -24,7 +24,7 @@
       <router-link to="/perfil" class="nav-link py-2">
         <span class="material-symbols-outlined">settings</span>
       </router-link>
-      <router-link to="/ajuda" class="nav-link py-2">
+      <router-link to="/sobre" class="nav-link py-2">
         <span class="material-symbols-outlined">info</span>
       </router-link>
     </div>
