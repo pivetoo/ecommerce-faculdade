@@ -80,7 +80,7 @@ export default {
         });
 
         alert('Conta criada com sucesso!');
-        router.push('/login');
+        router.push('/');
       } catch (error) {
         if (error.response) {
           console.error('Registro falhou:', error.response.data);
@@ -110,7 +110,7 @@ export default {
 
 <style scoped>
 .register-background {
-  background-image: url('../imagens/background.jpeg');
+  background-image: url('../assets/background.jpeg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

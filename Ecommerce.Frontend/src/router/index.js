@@ -7,8 +7,6 @@ import Perfil from '../views/Perfil.vue';
 import Sobre from '../views/Sobre.vue';
 import Chatbot from '../views/Chatbot.vue';
 
-
-
 const routes = [
   {
     path: '/',

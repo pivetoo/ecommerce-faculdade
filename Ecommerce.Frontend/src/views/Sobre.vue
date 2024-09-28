@@ -13,7 +13,7 @@
         </p>
         <div class="row mt-5">
           <div class="col-md-6 d-flex justify-content-center align-items-center">
-            <img src="/src/imagens/Tray_logo.jpg" class="img-fluid rounded img-950" alt="Sobre o Projeto">
+            <img src="/src/assets/Tray_logo.jpg" class="img-fluid rounded img-950" alt="Sobre o Projeto">
           </div>
           <div class="col-md-6">
             <h3>Objetivos</h3>
@@ -36,10 +36,8 @@
     </div>
   </div>
 
-
   <ChatbotWidget />
 </template>
-
 
 <style scoped>
 .about-section {
