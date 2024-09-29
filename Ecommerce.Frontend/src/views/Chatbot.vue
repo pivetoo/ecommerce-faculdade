@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="mt-4 d-flex justify-content-center">
-                    <button @click="openModal" class="btn btn-secondary mr-3">Adicionar Mensagem</button>
+                    <button @click="openModal" class="btn btn-secondary mr-3">Adicionar Conteudos</button>
                     <button @click="openContentManager" class="btn btn-danger">Gerenciar Conteúdos</button>
                 </div>
             </div>

@@ -42,7 +42,6 @@
         </ul>
       </nav>
 
-      <!-- Modal para adicionar FAQ -->
       <div class="modal fade" id="addFaqModal" tabindex="-1" aria-labelledby="addFaqModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -80,7 +79,6 @@
         </div>
       </div>
 
-      <!-- Modal de confirmação de exclusão -->
       <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
