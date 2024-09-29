@@ -8,40 +8,24 @@
                 <p class="subtitle fs-5">Atualize suas informações abaixo.</p>
             </div>
 
-            <div class="user-profile d-flex w-100">
-                <div class="photo-section p-3 col-12 col-md-4 pb-3 d-flex flex-column justify-content-start align-items-center">
-                    <h4 class="section-title ps-4">Foto de Perfil</h4>
-
-                    <div v-if="!imageSrc" :class="{ 'inactive': !editando }"
-                        class="upload-area p-3 d-flex flex-column justify-content-center align-items-center"
-                        @dragover.prevent="arrastaImagem" @drop.prevent="soltaImagem" @click="$refs.addImagem.click()">
-                        <i class="fa-solid fa-cloud-upload-alt fa-3x text-primary"></i>
-                        <p class="text-muted mt-2">Arraste uma foto ou clique para fazer o upload</p>
-                        <input type="file" ref="addImagem" class="d-none" @change="alteraImagem" />
-                    </div>
-
-                    <div v-else class="image-preview d-flex flex-column align-items-center">
-                        <img :src="imageSrc" class="img-thumbnail shadow-sm" alt="Pré-visualização" />
-                        <div class="delete-icon d-flex align-items-center p-3 position-absolute end-0">
-                            <i v-show="editando" class="fa-solid fa-trash-can text-light fs-2" @click="removerFoto"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-section col-12 col-md-8 p-3">
+            <div class="user-profile d-flex justify-content-center align-items-center w-100">
+                <div class="info-section col-12 col-md-8 p-3 text-center">
                     <div class="form-group mb-4">
                         <label for="nome" class="form-label fs-5">Nome Completo</label>
-                        <input type="text" v-model="usuario.nome" class="form-control border-2 rounded-0 py-3 px-4 fs-5" id="nome" />
+                        <input type="text" v-model="usuario.nome" class="form-control border-2 rounded-0 py-3 px-4 fs-5"
+                            id="nome" />
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="telefone" class="form-label fs-5">Telefone</label>
-                        <input type="text" v-model="usuario.telefone" class="form-control border-2 rounded-0 py-3 px-4 fs-5" id="telefone" />
+                        <input type="text" v-model="usuario.telefone"
+                            class="form-control border-2 rounded-0 py-3 px-4 fs-5" id="telefone" />
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="email" class="form-label fs-5">Email</label>
-                        <input type="email" v-model="usuario.email" class="form-control border-2 rounded-0 py-3 px-4 fs-5" id="email" />
+                        <input type="email" v-model="usuario.email"
+                            class="form-control border-2 rounded-0 py-3 px-4 fs-5" id="email" />
                     </div>
 
                     <div class="form-group mb-4">
@@ -49,6 +33,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -136,11 +121,11 @@ export default {
 }
 
 .content-wrapper {
-    flex: 1; 
+    flex: 1;
     padding: 0 2rem;
     background-color: var(--background-primary);
     height: 100%;
-    margin-left: 250px; 
+    margin-left: 250px;
 }
 
 .user-info {
@@ -152,6 +137,8 @@ export default {
     display: flex;
     flex-wrap: wrap;
     margin-top: 2rem;
+    min-height: 50vh;
+    /* Centraliza verticalmente */
 }
 
 .photo-section {
@@ -204,6 +191,7 @@ export default {
 }
 
 .form-group {
+    text-align: left;
     margin-bottom: 1.5rem;
 }
 

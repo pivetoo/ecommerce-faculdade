@@ -132,6 +132,7 @@ export default {
 
 .form-group {
   margin-bottom: 15px;
+  text-align: left;
 }
 
 .has-error input {
