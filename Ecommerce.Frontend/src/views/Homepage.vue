@@ -84,6 +84,7 @@
         <div class="card-body">
           <h5 class="card-title">Suportes via Chatbot</h5>
           <div class="chart-container">
+            <DoughnutChart />
           </div>
           <div class="d-flex justify-content-between mt-3">
             <span class="text-muted">Novos Suportes</span>
@@ -101,11 +102,14 @@
 
 <script>
 import Sidebar from '@/components/Sidebar.vue';
+import DoughnutChart from '@/components/DoughnutChart.vue';
+import ChatbotWidget from '@/components/ChatbotWidget.vue';
 
 export default {
   name: "HomePage",
   components: {
     Sidebar,
+    DoughnutChart,
   },
   data() {
     return {
