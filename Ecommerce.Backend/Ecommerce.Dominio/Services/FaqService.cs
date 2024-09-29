@@ -81,5 +81,10 @@ namespace Ecommerce.Dominio.Services
             await _faqRepository.Excluir(id);
             return true;
         }
+
+        public async Task<int> ContarFAQs()
+        {
+            return await _faqRepository.ContarFAQs();
+        }
     }
 }

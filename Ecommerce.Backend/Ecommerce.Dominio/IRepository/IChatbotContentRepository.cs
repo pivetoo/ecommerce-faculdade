@@ -9,5 +9,6 @@ namespace Ecommerce.Dominio.IRepository
         Task Incluir(ChatbotContent chatBot);
         Task Atualizar(ChatbotContent chatBot);
         Task Excluir(ChatbotContent chatBot);
+        Task<int> ContarConteudos();
     }
 }

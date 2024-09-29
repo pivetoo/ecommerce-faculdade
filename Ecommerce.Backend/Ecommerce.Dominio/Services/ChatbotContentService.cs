@@ -54,5 +54,10 @@ namespace Ecommerce.Dominio.Services
             await _chatbotContentRepository.Excluir(conteudo);
             return true;
         }
+
+        public async Task<int> ContarConteudos()
+        {
+            return await _chatbotContentRepository.ContarConteudos();
+        }
     }
 }

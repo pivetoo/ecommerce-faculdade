@@ -47,5 +47,12 @@ namespace Ecommerce.API.Controllers
             var excluir = await _chatBotService.ExcluirConteudo(id);
             return Ok(excluir);
         }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> ContarConteudos()
+        {
+            var conteudos = await _chatBotService.ContarConteudos();
+            return Ok(new { total = conteudos });
+        }
     }
 }

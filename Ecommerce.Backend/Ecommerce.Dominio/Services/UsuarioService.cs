@@ -75,5 +75,10 @@ namespace Ecommerce.Dominio.Services
             await _usuarioRepository.Excluir(usuario);
             return true;
         }
+
+        public async Task<int> ContarUsuarios()
+        {
+            return await _usuarioRepository.CountarUsuarios();
+        }
     }
 }

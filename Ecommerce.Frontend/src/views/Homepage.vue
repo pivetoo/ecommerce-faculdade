@@ -44,7 +44,7 @@
           <div class="card mb-4 shadow-sm">
             <div class="card-body">
               <h5 class="card-title">Total de Conteúdos Cadastrados</h5>
-              <p class="card-text display-4">184</p>
+              <p class="card-text display-4">{{ totalConteudos }}</p>
               <div class="growth-info">
                 <i class="material-icons trending-icon">trending_up</i>
                 <span class="growth-percentage">8.5%</span> Desde o mês passado
@@ -57,10 +57,10 @@
           <div class="card mb-4 shadow-sm">
             <div class="card-body">
               <h5 class="card-title">Total de FAQs Cadastrados</h5>
-              <p class="card-text display-4">184</p>
+              <p class="card-text display-4">{{ totalFaqs }}</p>
               <div class="growth-info">
                 <i class="material-icons trending-icon">trending_up</i>
-                <span class="growth-percentage">8.5%</span> Desde o mês passado
+                <span class="growth-percentage">11.5%</span> Desde o mês passado
               </div>
             </div>
           </div>
@@ -70,10 +70,10 @@
           <div class="card mb-4 shadow-sm">
             <div class="card-body">
               <h5 class="card-title">Total de Usuários Ativos</h5>
-              <p class="card-text display-4">75</p>
+              <p class="card-text display-4">{{ totalUsuariosAtivos }}</p>
               <div class="growth-info">
                 <i class="material-icons trending-icon">trending_up</i>
-                <span class="growth-percentage">5%</span> Desde o mês passado
+                <span class="growth-percentage">15.9%</span> Desde o mês passado
               </div>
             </div>
           </div>
@@ -103,7 +103,7 @@
 <script>
 import Sidebar from '@/components/Sidebar.vue';
 import DoughnutChart from '@/components/DoughnutChart.vue';
-import ChatbotWidget from '@/components/ChatbotWidget.vue';
+import { getTotalFAQs, getTotalConteudos, getTotalUsuariosAtivos } from '@/services/homeService';
 
 export default {
   name: "HomePage",
@@ -114,6 +114,9 @@ export default {
   data() {
     return {
       nome: '',
+      totalConteudos: 0,
+      totalFaqs: 0,
+      totalUsuariosAtivos: 0,
     };
   },
   mounted() {
@@ -122,8 +125,19 @@ export default {
       const decodedToken = this.parseJwt(token);
       this.nome = decodedToken?.unique_name || 'Usuário';
     }
+
+    this.fetchTotals();
   },
   methods: {
+    async fetchTotals() {
+      try {
+        this.totalFaqs = await getTotalFAQs();
+        this.totalConteudos = await getTotalConteudos();
+        this.totalUsuariosAtivos = await getTotalUsuariosAtivos();
+      } catch (error) {
+        console.error("Erro ao carregar os totais", error);
+      }
+    },
     parseJwt(token) {
       try {
         const base64Url = token.split('.')[1];

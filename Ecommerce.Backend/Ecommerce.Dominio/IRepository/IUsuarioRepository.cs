@@ -9,5 +9,6 @@ namespace Ecommerce.Dominio.IRepository
         Task Incluir(Usuario usuario);
         Task Atualizar(Usuario usuario);
         Task Excluir(Usuario usuario);
+        Task<int> CountarUsuarios();
     }
 }

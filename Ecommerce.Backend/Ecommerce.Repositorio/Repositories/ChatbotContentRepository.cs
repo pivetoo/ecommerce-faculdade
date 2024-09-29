@@ -41,5 +41,10 @@ namespace Ecommerce.Repositorio.Repositories
             _context.ChatbotContents.Remove(chatBot);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<int> ContarConteudos()
+        {
+            return await _context.ChatbotContents.CountAsync();
+        }
     }
 }

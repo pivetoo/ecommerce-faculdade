@@ -42,5 +42,10 @@ namespace Ecommerce.Repositorio.Repositories
             _context.FAQs.Remove(faq!);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<int> ContarFAQs()
+        {
+            return await _context.FAQs.CountAsync();
+        }
     }
 }

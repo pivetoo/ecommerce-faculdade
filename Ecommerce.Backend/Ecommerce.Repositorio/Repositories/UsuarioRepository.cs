@@ -42,5 +42,10 @@ namespace Ecommerce.Repositorio.Repositories
             _context.Usuarios.Remove(usuario!);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<int> CountarUsuarios()
+        {
+            return await _context.Usuarios.CountAsync();
+        }
     }
 }

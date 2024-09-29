@@ -80,5 +80,12 @@ namespace Ecommerce.API.Controllers
             var remover = await _faqService.ExcluirFAQ(id);
             return Ok(remover);
         }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> ContarFAQs()
+        {
+            var totalFAQs = await _faqService.ContarFAQs();
+            return Ok(new { total = totalFAQs });
+        }
     }
 }

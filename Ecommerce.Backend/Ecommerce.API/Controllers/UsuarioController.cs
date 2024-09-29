@@ -72,5 +72,12 @@ namespace Ecommerce.API.Controllers
             await _usuarioService.ExcluirUsuario(id);
             return Ok("Usuário excluído com sucesso!");
         }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> ContarUsuarios()
+        {
+            var totalUsuarios = await _usuarioService.ContarUsuarios();
+            return Ok(new { total = totalUsuarios });
+        }
     }
 }

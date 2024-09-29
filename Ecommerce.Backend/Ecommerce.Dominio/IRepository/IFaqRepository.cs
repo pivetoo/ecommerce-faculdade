@@ -9,5 +9,6 @@ namespace Ecommerce.Dominio.IRepository
         Task Incluir(FAQ faq);
         Task Atualizar(FAQ faq);
         Task Excluir(long id);
+        Task<int> ContarFAQs();
     }
 }
