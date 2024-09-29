@@ -40,11 +40,34 @@ export default {
 <style scoped>
 .sidebar {
   width: 80px;
-  min-height: 100vh;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 3px 0 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 1000; 
+  background-color: #f8f9fa; 
+}
+
+
+.nav {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sidebar-footer {
+  margin-top: auto; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 1rem;
 }
 
 .logo-img {
