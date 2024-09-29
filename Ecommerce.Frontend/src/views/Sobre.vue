@@ -36,7 +36,6 @@
     </div>
   </div>
 
-  <ChatbotWidget />
 </template>
 
 <style scoped>
@@ -92,13 +91,11 @@
 
 <script>
 import Sidebar from '@/components/Sidebar.vue';
-import ChatbotWidget from '@/components/ChatbotWidget.vue';
 
 export default {
   name: 'Sobre',
   components: {
     Sidebar,
-    ChatbotWidget
   },
 };
 </script>

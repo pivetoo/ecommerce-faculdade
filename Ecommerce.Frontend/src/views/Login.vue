@@ -25,7 +25,7 @@
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
+import { login } from '@/services/authService';
 
 export default {
   setup() {
@@ -35,11 +35,7 @@ export default {
 
     const handleLogin = async () => {
       try {
-        const response = await axios.post('https://localhost:7172/api/Login', {
-          email: email.value,
-          senha: senha.value
-        });
-
+        const response = await login(email.value, senha.value);
         const { token, isAdmin } = response.data;
 
         localStorage.setItem('token', token);
@@ -50,7 +46,7 @@ export default {
           router.push('/ecommerce');
         }
       } catch (error) {
-        console.error('Login failed:', error);
+        alert('Falha no login. Verifique suas credenciais e tente novamente.');
       }
     };
 
@@ -64,7 +60,6 @@ export default {
 </script>
 
 <style scoped>
-
 .h2 {
   font-weight: bold;
   font-size: 1.75rem;
@@ -87,10 +82,11 @@ export default {
   justify-content: center;
   align-items: center;
 }
+
 .login-container {
   display: flex;
   justify-content: center;
-  align-items: center;    
+  align-items: center;
   width: 100%;
 }
 
@@ -138,7 +134,7 @@ input[type="password"] {
 button[type="submit"] {
   width: 100%;
   padding: 12px;
-  background-color: #007bff; 
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -154,7 +150,7 @@ button[type="submit"]:hover {
   text-align: center;
   margin-top: 10px;
 }
-  
+
 .criar-conta a {
   color: #0077cc;
   text-decoration: none;

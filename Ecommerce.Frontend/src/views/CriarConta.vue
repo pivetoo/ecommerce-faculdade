@@ -37,7 +37,7 @@
 <script>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
+import { register } from '@/services/authService';
 
 export default {
   setup() {
@@ -59,34 +59,20 @@ export default {
       senhaErro.value = senha.value.length < 6;
       confirmarSenhaErro.value = senha.value !== confirmarSenha.value;
 
-      if (nomeErro.value || emailErro.value || senhaErro.value || confirmarSenhaErro.value) {
-        valid = false;
-      }
-
-      return valid;
+      return valid && !nomeErro.value && !emailErro.value && !senhaErro.value && !confirmarSenhaErro.value;
     };
 
     const handleRegister = async () => {
-      if (!validarFormulario()) {
-        return;
-      }
+      if (!validarFormulario()) return;
 
       try {
         isSubmitting.value = true;
-        const response = await axios.post('https://localhost:7172/api/Usuario', {
-          nome: nome.value,
-          email: email.value,
-          senha: senha.value
-        });
+        await register(nome.value, email.value, senha.value);
 
         alert('Conta criada com sucesso!');
         router.push('/');
       } catch (error) {
-        if (error.response) {
-          console.error('Registro falhou:', error.response.data);
-        } else {
-          console.error('Erro desconhecido:', error.message);
-        }
+        alert('Erro ao criar a conta. Tente novamente.');
       } finally {
         isSubmitting.value = false;
       }
@@ -135,17 +121,17 @@ export default {
 
 .register-card {
   background-color: white;
-  padding: 20px; /* Reduzi o padding */
+  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   width: 100%;
-  max-width: 500px; /* Reduzi a largura máxima */
+  max-width: 500px;
   text-align: center;
-  height: auto; /* Removi a altura fixa */
+  height: auto;
 }
 
 .form-group {
-  margin-bottom: 15px; /* Reduzi o espaçamento entre os campos */
+  margin-bottom: 15px;
 }
 
 .has-error input {
@@ -154,7 +140,7 @@ export default {
 
 .error-message {
   color: #ff4d4d;
-  font-size: 0.75rem; /* Diminuí o tamanho da fonte do erro */
+  font-size: 0.75rem;
   margin-top: 4px;
   display: block;
   text-align: left;
@@ -164,14 +150,14 @@ input[type="text"],
 input[type="email"],
 input[type="password"] {
   width: 100%;
-  padding: 8px; /* Reduzi o padding */
+  padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
 button[type="submit"] {
   width: 100%;
-  padding: 10px; /* Reduzi o padding */
+  padding: 10px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -190,13 +176,13 @@ button[disabled] {
 }
 
 .ja-tem-conta {
-  margin-top: 10px; /* Reduzi o espaçamento superior */
+  margin-top: 10px;
 }
 
 .login-link {
   color: #0077cc;
   text-decoration: none;
-  margin-top: 8px; /* Reduzi o espaçamento superior */
+  margin-top: 8px;
   display: block;
 }
 
