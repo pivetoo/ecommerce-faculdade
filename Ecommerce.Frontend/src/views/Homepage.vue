@@ -7,7 +7,7 @@
       <p class="welcome-submessage">É bom vê-lo(a) novamente.</p>
 
       <br>
-      <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel">
+      <div id="carouselExampleIndicators" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="4500">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
             aria-current="true" aria-label="Slide 1"></button>
@@ -175,7 +175,7 @@ export default {
 }
 
 .content {
-  margin-left: 80px;
+  margin-left: 80px; 
   padding: 20px;
   flex-grow: 1;
 }
@@ -212,7 +212,7 @@ export default {
 }
 
 .shadow-sm {
-  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .075) !important;
+  box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.075) !important;
 }
 
 .growth-info {
