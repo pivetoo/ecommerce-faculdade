@@ -1,16 +1,15 @@
 <template>
-    <div class="d-flex">
+    <div class="d-flex layout">
         <Sidebar />
 
-        <div class="container-fluid p-0 user-">
+        <div class="container-fluid content-wrapper p-0">
             <div class="user-info text-center px-1 px-md-5 pt-5 pt-md-0">
                 <h1 class="title fw-bold">Perfil do Usuário</h1>
                 <p class="subtitle fs-5">Atualize suas informações abaixo.</p>
             </div>
 
             <div class="user-profile d-flex w-100">
-                <div
-                    class="photo-section p-3 col-12 col-md-4 pb-3 d-flex flex-column justify-content-start align-items-center">
+                <div class="photo-section p-3 col-12 col-md-4 pb-3 d-flex flex-column justify-content-start align-items-center">
                     <h4 class="section-title ps-4">Foto de Perfil</h4>
 
                     <div v-if="!imageSrc" :class="{ 'inactive': !editando }"
@@ -32,20 +31,17 @@
                 <div class="info-section col-12 col-md-8 p-3">
                     <div class="form-group mb-4">
                         <label for="nome" class="form-label fs-5">Nome Completo</label>
-                        <input type="text" v-model="usuario.nome" class="form-control border-2 rounded-0 py-3 px-4 fs-5"
-                            id="nome" />
+                        <input type="text" v-model="usuario.nome" class="form-control border-2 rounded-0 py-3 px-4 fs-5" id="nome" />
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="telefone" class="form-label fs-5">Telefone</label>
-                        <input type="text" v-model="usuario.telefone"
-                            class="form-control border-2 rounded-0 py-3 px-4 fs-5" id="telefone" />
+                        <input type="text" v-model="usuario.telefone" class="form-control border-2 rounded-0 py-3 px-4 fs-5" id="telefone" />
                     </div>
 
                     <div class="form-group mb-4">
                         <label for="email" class="form-label fs-5">Email</label>
-                        <input type="email" v-model="usuario.email"
-                            class="form-control border-2 rounded-0 py-3 px-4 fs-5" id="email" />
+                        <input type="email" v-model="usuario.email" class="form-control border-2 rounded-0 py-3 px-4 fs-5" id="email" />
                     </div>
 
                     <div class="form-group mb-4">
@@ -115,7 +111,6 @@ export default {
                     const decodedToken = this.parseJwt(token);
                     const userId = decodedToken['nameid'];
 
-                    // Agora o ID é enviado na URL e a requisição é um PUT
                     await axios.put(`https://localhost:7172/api/Usuario/${userId}`, this.usuario, {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -141,10 +136,11 @@ export default {
 }
 
 .content-wrapper {
-    flex: 1;
+    flex: 1; 
     padding: 0 2rem;
     background-color: var(--background-primary);
     height: 100%;
+    margin-left: 250px; 
 }
 
 .user-info {
@@ -214,6 +210,7 @@ export default {
 @media (max-width: 768px) {
     .content-wrapper {
         padding: 1rem;
+        margin-left: 0;
     }
 
     .photo-section,
