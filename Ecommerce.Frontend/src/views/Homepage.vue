@@ -160,6 +160,26 @@ export default {
 </script>
 
 <style scoped>
+.sidebar {
+  width: 80px; 
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 3px 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  background-color: #f8f9fa; 
+}
+
+.content {
+  margin-left: 80px;
+  padding: 20px;
+  flex-grow: 1;
+}
+
 .welcome-message {
   font-family: 'Roboto', sans-serif;
   font-size: 2rem;
