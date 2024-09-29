@@ -2,7 +2,7 @@
     <div class="d-flex">
         <Sidebar />
         <div class="container chatbot-container mt-5">
-            <h2 class="chatbot-title">Chatbot</h2> 
+            <h2 class="chatbot-title">Chatbot</h2>
             <div class="chat-container">
                 <div class="chat-messages">
                     <div v-for="(message, index) in messages" :key="index"
@@ -86,8 +86,8 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Sidebar from '@/components/Sidebar.vue';
+import { sendMessage, feedChatbotContent, fetchChatbotContents, deleteChatbotContent } from '@/services/ChatService';
 
 export default {
     name: 'Chatbot',
@@ -112,18 +112,15 @@ export default {
 
             this.messages.push({ text: this.newMessage, isUser: true });
 
-            try {
-                const response = await axios.post('https://localhost:7172/api/Chatbot/pergunta', {
-                    pergunta: this.newMessage,
-                });
+            const messageToSend = this.newMessage;
+            this.newMessage = '';
 
+            try {
+                const response = await sendMessage(messageToSend);
                 this.messages.push({ text: response.data.resposta, isUser: false });
             } catch (error) {
-                console.error('Erro ao se comunicar com o chatbot:', error);
                 this.messages.push({ text: 'Erro ao se comunicar com o servidor.', isUser: false });
             }
-
-            this.newMessage = '';
         },
         openModal() {
             this.showModal = true;
@@ -135,17 +132,7 @@ export default {
         async feedChatbot() {
             if (this.newFeedMessage.trim() === '') return;
 
-            try {
-                const response = await axios.post('https://localhost:7172/api/ChatbotContent', {
-                    role: this.selectedType,
-                    content: this.newFeedMessage,
-                });
-
-                console.log('Chatbot alimentado com sucesso:', response.data);
-            } catch (error) {
-                console.error('Erro ao alimentar o chatbot:', error);
-            }
-
+            await feedChatbotContent(this.selectedType, this.newFeedMessage);
             this.closeModal();
         },
         resetModalFields() {
@@ -154,18 +141,10 @@ export default {
         },
         async openContentManager() {
             this.showContentManager = true;
-            try {
-                const response = await axios.get('https://localhost:7172/api/ChatbotContent');
-                console.log("Resposta completa da API:", response);
-                console.log("Dados retornados:", response.data.$values);
+            const response = await fetchChatbotContents();
 
-                if (Array.isArray(response.data.$values)) {
-                    this.contents = response.data.$values;
-                } else {
-                    console.error('Formato inesperado dos dados');
-                }
-            } catch (error) {
-                console.error('Erro ao listar conteúdos:', error);
+            if (Array.isArray(response.data.$values)) {
+                this.contents = response.data.$values;
             }
         },
         closeContentManager() {
@@ -175,16 +154,12 @@ export default {
         async deleteSelectedContents() {
             if (this.selectedContents.length === 0) return;
 
-            try {
-                await Promise.all(this.selectedContents.map(async (contentId) => {
-                    await axios.delete(`https://localhost:7172/api/ChatbotContent/${contentId}`);
-                }));
+            await Promise.all(this.selectedContents.map(async (contentId) => {
+                await deleteChatbotContent(contentId);
+            }));
 
-                this.contents = this.contents.filter(content => !this.selectedContents.includes(content.id));
-                this.selectedContents = [];
-            } catch (error) {
-                console.error('Erro ao excluir conteúdos:', error);
-            }
+            this.contents = this.contents.filter(content => !this.selectedContents.includes(content.id));
+            this.selectedContents = [];
         }
     },
 };
@@ -197,11 +172,11 @@ export default {
 }
 
 .chatbot-title {
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     margin-bottom: 20px;
     font-size: 2rem;
     font-weight: bold;
-    color: #4A4A4A;
 }
 
 .chat-container {
