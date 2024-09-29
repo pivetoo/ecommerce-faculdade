@@ -21,22 +21,8 @@ namespace Ecommerce.Repositorio.Data
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
-        public EcommerceDbContext()
-        {            
-        }
-
-        public EcommerceDbContext(DbContextOptions<EcommerceDbContext> options, IConfiguration configuration) : base(options)
-        {
-            _configuration = configuration;
-        }
-
-        // migration redundante
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseNpgsql(_configuration.GetConnectionString("DefaultConnection"));
-            }
+        public EcommerceDbContext(DbContextOptions<EcommerceDbContext> options) : base(options)
+        { 
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
