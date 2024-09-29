@@ -75,13 +75,20 @@ namespace Ecommerce.API.Controllers
             return Ok("Token válido. Redefina sua senha.");
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<IActionResult> ObterUsuario(long id)
         {
             var usuario = await _usuarioService.ConsultaUsuarioPorId(id);
             return Ok(usuario);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AtualizarUsuario(long id, Usuario usuario)
+        {
+            await _usuarioService.AtualizarUsuario(usuario);
+            return Ok("Usuário atualizado com sucesso!");
+        }
+
 
         [HttpGet("atualizar-senha")]
         public async Task<IActionResult> AtualizarUsuario(Usuario usuario)
@@ -90,7 +97,6 @@ namespace Ecommerce.API.Controllers
             return Ok("Usuário atualizado com sucesso!");
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> ExcluirUsuario(int id)
         {

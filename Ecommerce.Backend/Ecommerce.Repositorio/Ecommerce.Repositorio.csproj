@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Ecommerce.Dominio\Ecommerce.Dominio.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
