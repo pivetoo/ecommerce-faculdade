@@ -22,7 +22,7 @@
         <span class="notification-dot"></span>
       </router-link>
       <router-link to="/perfil" class="nav-link py-2">
-        <span class="material-symbols-outlined">settings</span>
+        <span class="material-symbols-outlined">person</span>
       </router-link>
       <router-link to="/sobre" class="nav-link py-2">
         <span class="material-symbols-outlined">info</span>
