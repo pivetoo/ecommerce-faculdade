@@ -374,7 +374,9 @@ namespace Ecommerce.Repositorio.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Endereco")
-                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImagemUrl")
                         .HasColumnType("text");
 
                     b.Property<bool>("IsAdmin")
@@ -389,7 +391,6 @@ namespace Ecommerce.Repositorio.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Telefone")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

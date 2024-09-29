@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Ecommerce.Repositorio.Migrations
 {
     /// <inheritdoc />
-    public partial class FaqMigration : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,8 +65,9 @@ namespace Ecommerce.Repositorio.Migrations
                     Nome = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Senha = table.Column<string>(type: "text", nullable: false),
-                    Telefone = table.Column<string>(type: "text", nullable: false),
-                    Endereco = table.Column<string>(type: "text", nullable: false),
+                    Telefone = table.Column<string>(type: "text", nullable: true),
+                    ImagemUrl = table.Column<string>(type: "text", nullable: true),
+                    Endereco = table.Column<string>(type: "text", nullable: true),
                     IsAdmin = table.Column<bool>(type: "boolean", nullable: false),
                     CriadoEm = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },

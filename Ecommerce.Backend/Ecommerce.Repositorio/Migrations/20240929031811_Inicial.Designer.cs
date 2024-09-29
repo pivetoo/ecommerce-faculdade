@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Ecommerce.Repositorio.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    [Migration("20240925135041_FaqMigration")]
-    partial class FaqMigration
+    [Migration("20240929031811_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -377,7 +377,9 @@ namespace Ecommerce.Repositorio.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Endereco")
-                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImagemUrl")
                         .HasColumnType("text");
 
                     b.Property<bool>("IsAdmin")
@@ -392,7 +394,6 @@ namespace Ecommerce.Repositorio.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Telefone")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
