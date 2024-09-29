@@ -130,6 +130,8 @@ void Configure(WebApplication app)
 
     app.UseHttpsRedirection();
 
+    app.UseStaticFiles();
+
     app.UseCors();
 
     app.UseRouting();

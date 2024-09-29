@@ -51,10 +51,10 @@ namespace Ecommerce.API.Controllers
 
         //[Authorize]
         [HttpGet]
-        public async Task<IActionResult> ListarTodosFAQs()
+        public async Task<IActionResult> ListarTodosFAQs(int pageNumber = 1, int pageSize = 10)
         {
-            var faqs = await _faqService.ListarTodosFAQs();
-            return Ok(faqs);
+            var faqsPaginados = await _faqService.ListarTodosFAQs(pageNumber, pageSize);
+            return Ok(faqsPaginados);
         }
 
         //[Authorize]
@@ -74,7 +74,7 @@ namespace Ecommerce.API.Controllers
         }
 
         //[Authorize(Roles = "Admin")]
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> RemoverFAQ(long id)
         {
             var remover = await _faqService.ExcluirFAQ(id);

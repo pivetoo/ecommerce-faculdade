@@ -12,9 +12,27 @@ namespace Ecommerce.Dominio.Services
             _faqRepository = faqRepository;
         }
 
-        public async Task<IEnumerable<FAQ>> ListarTodosFAQs()
+        public async Task<object> ListarTodosFAQs(int pageNumber, int pageSize)
         {
-            return await _faqRepository.RetornarTodos();
+            if (pageNumber <= 0) pageNumber = 1;
+            if (pageSize <= 0) pageSize = 10;
+
+            var faqs = await _faqRepository.RetornarTodos();
+
+            var pagedFaqs = faqs.Skip((pageNumber - 1) * pageSize)
+                                .Take(pageSize)
+                                .ToList();
+
+            var totalFAQs = faqs.Count();
+            var totalPages = (int)Math.Ceiling((double)totalFAQs / pageSize);
+
+            return new
+            {
+                TotalFAQs = totalFAQs,
+                PageNumber = pageNumber,
+                TotalPages = totalPages,
+                FAQs = pagedFaqs
+            };
         }
 
         public async Task<bool> CriarFAQ(FAQ faq)
