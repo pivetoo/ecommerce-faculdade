@@ -55,6 +55,9 @@ git clone https://github.com/pivetoo/ecommerce-faculdade.git
 
 3. Executar as migrações do banco de dados:
 ```bash
+cd Ecommerce.Repositorio
+```
+```bash
 dotnet ef database update --startup-project ../Ecommerce.API
 ```
 
