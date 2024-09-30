@@ -33,30 +33,40 @@ Seja bem-vindo ao Projeto Fusão! Este projeto foi desenvolvido como parte da di
 ### Requisitos
 - **Backend**:
   - Visual Studio 2022
-  - .NET Core 8.0
-  - PostgreSQL
+  - NET Core SDK 8.0: O SDK do .NET Core é necessário para construir e executar o projeto. [Download do .NET SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+  - PostgreSQL: O banco de dados utilizado. [Download do PostgreSQL](https://www.postgresql.org/download/)
 
 - **Frontend**:
-  - Node.js 14.x ou superior
+  - Node.js 14.x ou superior [Download do Node.js](https://nodejs.org/)
   - npm 6.x ou superior
 
-### Backend
+Primeiramente, você precisa instalar a ferramenta dotnet-ef globalmente para gerenciar as migrações do banco de dados no projeto. Execute o comando abaixo:
 
-1. Clonar o projeto:
+```bash
+dotnet tool install --global dotnet-ef
+```
+
+Clone o repositório do projeto com o comando:
 ```bash
 git clone https://github.com/pivetoo/ecommerce-faculdade.git
 ```
 
-2. Abra a pasta do projeto backend `Ecommerce.Backend` após isso execute o arquivo `Ecommerce.sln`
+### Backend
 
-3. Ao abrir o projeto, na pasta Ecommerce.API, clique com o botão direito e selecione a opção `Set as Startup Project`.
+1. Clonar o projeto:
 
-2. Configure a sua string de conexão postgres no arquivo appsettings.json na pasta Ecommerce.API.
+2. Navegue até a pasta `Ecommerce.Backend` e abra o arquivo `Ecommerce.sln` no Visual Studio.
 
-3. Executar as migrações do banco de dados:
+3. No Visual Studio, localize a pasta `Ecommerce.API`, clique com o botão direito e selecione a opção `Set as Startup Project`.
+
+4. Navegue até o arquivo `appsettings.json` na pasta `Ecommerce.API` e configure a string de conexão para o PostgreSQL de acordo com o ambiente local.
+
+5. Antes de rodar o projeto, é necessário aplicar as migrações para configurar o banco de dados. No terminal, navegue até a pasta Ecommerce.Repositorio e execute o comando de migração:
 ```bash
 cd Ecommerce.Repositorio
 ```
+
+Execute o comando de migração, indicando o projeto API como o projeto de inicialização:
 ```bash
 dotnet ef database update --startup-project ../Ecommerce.API
 ```
