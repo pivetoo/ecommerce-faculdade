@@ -53,20 +53,18 @@ git clone https://github.com/pivetoo/ecommerce-faculdade.git
 
 ### Backend
 
-1. Clonar o projeto:
+1. Navegue até a pasta `Ecommerce.Backend` e abra o arquivo `Ecommerce.sln` no Visual Studio.
 
-2. Navegue até a pasta `Ecommerce.Backend` e abra o arquivo `Ecommerce.sln` no Visual Studio.
+2. No Visual Studio, localize a pasta `Ecommerce.API`, clique com o botão direito e selecione a opção `Set as Startup Project`.
 
-3. No Visual Studio, localize a pasta `Ecommerce.API`, clique com o botão direito e selecione a opção `Set as Startup Project`.
+3. Navegue até o arquivo `appsettings.json` na pasta `Ecommerce.API` e configure a string de conexão para o PostgreSQL de acordo com o ambiente local.
 
-4. Navegue até o arquivo `appsettings.json` na pasta `Ecommerce.API` e configure a string de conexão para o PostgreSQL de acordo com o ambiente local.
-
-5. Antes de rodar o projeto, é necessário aplicar as migrações para configurar o banco de dados. No terminal, navegue até a pasta Ecommerce.Repositorio e execute o comando de migração:
+4. Antes de rodar o projeto, é necessário aplicar as migrações para configurar o banco de dados. No terminal, navegue até a pasta Ecommerce.Repositorio.
 ```bash
 cd Ecommerce.Repositorio
 ```
 
-Execute o comando de migração, indicando o projeto API como o projeto de inicialização:
+E execute o comando de migração, indicando o projeto API como o projeto de inicialização:
 ```bash
 dotnet ef database update --startup-project ../Ecommerce.API
 ```
@@ -93,6 +91,3 @@ Pedro Henrique Nalom | 1968133\
 Breno Silva Bernardo | 1977043\
 Gilmar Junior Giroto Ferreira | 1978685\
 Suelen Aleixo da Silva | 1969506
-
-Dependências Essenciais:
-
