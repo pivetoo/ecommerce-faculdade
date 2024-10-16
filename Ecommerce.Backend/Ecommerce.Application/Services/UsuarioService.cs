@@ -15,12 +15,12 @@ namespace Ecommerce.Application.Services
         }
 
         public async Task<bool> CriarUsuario(Usuario usuario)
-        {            
-            //var usuarioExistente = await _usuarioRepository.ConsultaPorEmail(usuario.Email);
-            //if (usuarioExistente == null)
-            //{
-            //    throw new InvalidOperationException("Um usuário com este e-mail já existe.");
-            //}
+        {
+            var usuarioExistente = await _usuarioRepository.ConsultaPorEmail(usuario.Email);
+            if (usuarioExistente != null)
+            {
+                throw new InvalidOperationException("Um usuário com este e-mail já existe.");
+            }
 
             if (!PasswordPolicy.ValidarSenha(usuario.Senha))
             {
@@ -56,10 +56,16 @@ namespace Ecommerce.Application.Services
                 throw new KeyNotFoundException("Usuário não encontrado.");
             }
 
+            if (!PasswordPolicy.ValidarSenha(usuario.Senha))
+            {
+                throw new InvalidOperationException("A senha não atende aos requisitos de segurança. A senha deve conter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e símbolos.");
+            }
+
             usuarioExistente.Nome = usuario.Nome;
             usuarioExistente.Email = usuario.Email;
             usuarioExistente.Telefone = usuario.Telefone;
             usuarioExistente.Endereco = usuario.Endereco;
+            usuarioExistente.Cpf = usuario.Cpf;
 
             await _usuarioRepository.Atualizar(usuarioExistente);
             return true;
