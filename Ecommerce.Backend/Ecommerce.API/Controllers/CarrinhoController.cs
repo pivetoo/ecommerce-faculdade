@@ -1,4 +1,5 @@
-﻿using Ecommerce.Dominio.IService;
+﻿using Ecommerce.Application.DTOs;
+using Ecommerce.Dominio.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

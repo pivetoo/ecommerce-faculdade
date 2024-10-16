@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Ecommerce.Repositorio.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    [Migration("20240930012305_Inicial")]
+    [Migration("20241016215136_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -368,6 +368,10 @@ namespace Ecommerce.Repositorio.Migrations
                         .HasColumnType("bigint");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("CriadoEm")
                         .HasColumnType("timestamp with time zone");

@@ -12,6 +12,8 @@ namespace Ecommerce.Dominio.Entities
         public string Email { get; set; }
         [Required]
         public string Senha { get; set; }
+        [Required]
+        public string Cpf { get; set; }
         public string? Telefone { get; set; }
         public string? ImagemUrl { get; set; }
         public string? Endereco { get; set; }

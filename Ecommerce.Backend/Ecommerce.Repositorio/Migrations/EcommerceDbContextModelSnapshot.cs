@@ -366,6 +366,10 @@ namespace Ecommerce.Repositorio.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime?>("CriadoEm")
                         .HasColumnType("timestamp with time zone");
 

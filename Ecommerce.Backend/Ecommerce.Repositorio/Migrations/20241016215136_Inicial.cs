@@ -65,6 +65,7 @@ namespace Ecommerce.Repositorio.Migrations
                     Nome = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Senha = table.Column<string>(type: "text", nullable: false),
+                    Cpf = table.Column<string>(type: "text", nullable: false),
                     Telefone = table.Column<string>(type: "text", nullable: true),
                     ImagemUrl = table.Column<string>(type: "text", nullable: true),
                     Endereco = table.Column<string>(type: "text", nullable: true),

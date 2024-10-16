@@ -1,4 +1,5 @@
-﻿using Ecommerce.Dominio.Entities;
+﻿using Ecommerce.Application.DTOs;
+using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IService;
 using Ecommerce.Dominio.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
