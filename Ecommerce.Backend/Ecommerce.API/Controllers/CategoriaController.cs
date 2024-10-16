@@ -1,5 +1,5 @@
 ﻿using Ecommerce.Dominio.Entities;
-using Ecommerce.Dominio.Services;
+using Ecommerce.Dominio.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +9,9 @@ namespace Ecommerce.API.Controllers
     [ApiController]
     public class CategoriaController : ControllerBase
     {
-        private readonly CategoriaService _categoriaService;
+        private readonly ICategoriaService _categoriaService;
 
-        public CategoriaController(CategoriaService categoriaService)
+        public CategoriaController(ICategoriaService categoriaService)
         {
             _categoriaService = categoriaService;
         }

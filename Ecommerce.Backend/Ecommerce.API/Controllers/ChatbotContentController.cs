@@ -1,5 +1,5 @@
 ﻿using Ecommerce.Dominio.Entities;
-using Ecommerce.Dominio.Services;
+using Ecommerce.Dominio.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +9,9 @@ namespace Ecommerce.API.Controllers
     [ApiController]
     public class ChatbotContentController : ControllerBase
     {
-        private readonly ChatbotContentService _chatBotService;
+        private readonly IChatbotContentService _chatBotService;
 
-        public ChatbotContentController(ChatbotContentService chatBotService)
+        public ChatbotContentController(IChatbotContentService chatBotService)
         {
             _chatBotService = chatBotService;
         }

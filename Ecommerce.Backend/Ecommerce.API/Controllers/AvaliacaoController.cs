@@ -1,5 +1,5 @@
-﻿using Ecommerce.API.DTOs;
-using Ecommerce.Dominio.Services;
+﻿using Ecommerce.Application.DTOs;
+using Ecommerce.Dominio.IService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.API.Controllers
@@ -8,9 +8,9 @@ namespace Ecommerce.API.Controllers
     [ApiController]
     public class AvaliacaoController : ControllerBase
     {
-        private readonly AvaliacaoService _avaliacaoService;
+        private readonly IAvaliacaoService _avaliacaoService;
 
-        public AvaliacaoController(AvaliacaoService avaliacaoService)
+        public AvaliacaoController(IAvaliacaoService avaliacaoService)
         {
             _avaliacaoService = avaliacaoService;
         }

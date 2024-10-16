@@ -1,7 +1,6 @@
 ﻿using Ecommerce.Dominio.Entities;
-using Ecommerce.Dominio.Services;
+using Ecommerce.Dominio.IService;
 using Ecommerce.Dominio.Util;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.API.Controllers
@@ -10,11 +9,11 @@ namespace Ecommerce.API.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly UsuarioService _usuarioService;
+        private readonly IUsuarioService _usuarioService;
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _env;
 
-        public UsuarioController(UsuarioService usuarioService, IConfiguration configuration, IWebHostEnvironment env)
+        public UsuarioController(IUsuarioService usuarioService, IConfiguration configuration, IWebHostEnvironment env)
         {
             _usuarioService = usuarioService;
             _configuration = configuration;

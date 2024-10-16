@@ -1,5 +1,4 @@
-﻿using Ecommerce.API.DTOs;
-using Ecommerce.Dominio.Services;
+﻿using Ecommerce.Dominio.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +8,9 @@ namespace Ecommerce.API.Controllers
     [ApiController]
     public class CarrinhoController : ControllerBase
     {
-        private readonly CarrinhoService _carrinhoService;
+        private readonly ICarrinhoService _carrinhoService;
 
-        public CarrinhoController(CarrinhoService carrinhoService)
+        public CarrinhoController(ICarrinhoService carrinhoService)
         {
             _carrinhoService = carrinhoService;
         }

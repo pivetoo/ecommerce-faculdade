@@ -1,5 +1,5 @@
-﻿using Ecommerce.API.DTOs;
-using Ecommerce.Dominio.Services;
+﻿using Ecommerce.Application.DTOs;
+using Ecommerce.Dominio.IService;
 using Ecommerce.Dominio.Util;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +9,10 @@ namespace Ecommerce.API.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly UsuarioService _usuarioService;
+        private readonly IUsuarioService _usuarioService;
         private readonly IConfiguration _configuration;
 
-        public LoginController(UsuarioService usuarioService, IConfiguration configuration)
+        public LoginController(IUsuarioService usuarioService, IConfiguration configuration)
         {
             _usuarioService = usuarioService;
             _configuration = configuration;

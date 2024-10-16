@@ -1,8 +1,10 @@
-﻿using Ecommerce.Dominio.IRepository;
-using Ecommerce.Dominio.Services;
+﻿using Ecommerce.Application.Services;
+using Ecommerce.Dominio.IRepository;
+using Ecommerce.Dominio.IService;
 using Ecommerce.Dominio.Util;
 using Ecommerce.Repositorio.Data;
 using Ecommerce.Repositorio.Repositories;
+using EEcommerce.Application.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,15 +22,15 @@ namespace Ecommerce.IoC
             services.AddScoped<ChatbotOpenAI>();
 
             services.AddScoped<IAvaliacaoRepository, AvaliacaoRepository>();
-            services.AddScoped<AvaliacaoService>();
+            services.AddScoped<IAvaliacaoService, AvaliacaoService>();
 
             services.AddScoped<ICarrinhoRepository, CarrinhoRepository>();
-            services.AddScoped<CarrinhoService>();
+            services.AddScoped<ICarrinhoService, CarrinhoService>();
 
             services.AddScoped<PagamentoService>();
 
             services.AddScoped<IPedidoRepository, PedidoRepository>();
-            services.AddScoped<PedidoService>();
+            services.AddScoped<IPedidoService, PedidoService>();
 
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
             services.AddScoped<ProdutoService>();

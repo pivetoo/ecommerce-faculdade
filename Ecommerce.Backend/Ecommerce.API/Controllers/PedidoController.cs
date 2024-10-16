@@ -1,9 +1,7 @@
-﻿using Ecommerce.API.DTOs;
-using Ecommerce.Dominio.Entities;
-using Ecommerce.Dominio.Services;
+﻿using Ecommerce.Dominio.Entities;
+using Ecommerce.Dominio.IService;
 using Ecommerce.Dominio.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.API.Controllers
@@ -12,9 +10,9 @@ namespace Ecommerce.API.Controllers
     [ApiController]
     public class PedidoController : ControllerBase
     {
-        public readonly PedidoService _pedidoService;
+        public readonly IPedidoService _pedidoService;
 
-        public PedidoController(PedidoService pedidoService)
+        public PedidoController(IPedidoService pedidoService)
         {
             _pedidoService = pedidoService;
         }
