@@ -1,9 +1,10 @@
 ﻿using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IRepository;
+using Ecommerce.Dominio.IService;
 
-namespace Ecommerce.Dominio.Services
+namespace Ecommerce.Application.Services
 {
-    public class AvaliacaoService
+    public class AvaliacaoService : IAvaliacaoService
     {
         private readonly IAvaliacaoRepository _avaliacaoRepository;
         private readonly IUsuarioRepository _usuarioRepository;
@@ -92,7 +93,7 @@ namespace Ecommerce.Dominio.Services
             await _avaliacaoRepository.Consulta(p => p.Produto.Id == produto.Id);
 
             produto.NotaMedia = avaliacao.Any() ? avaliacao.Average(a => a.Nota) : 0;
-            
+
             await _produtoRepository.Atualizar(produto);
         }
     }

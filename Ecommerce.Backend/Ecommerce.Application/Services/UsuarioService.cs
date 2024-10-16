@@ -1,10 +1,11 @@
 ﻿using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IRepository;
+using Ecommerce.Dominio.IService;
 using Ecommerce.Dominio.Util;
 
-namespace Ecommerce.Dominio.Services
+namespace Ecommerce.Application.Services
 {
-    public class UsuarioService
+    public class UsuarioService : IUsuarioService
     {
         private readonly IUsuarioRepository _usuarioRepository;
 

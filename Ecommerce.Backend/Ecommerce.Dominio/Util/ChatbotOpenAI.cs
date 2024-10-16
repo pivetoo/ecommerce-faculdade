@@ -1,4 +1,4 @@
-﻿using Ecommerce.Dominio.Services;
+﻿using Ecommerce.Dominio.IService;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Text;
@@ -9,9 +9,9 @@ namespace Ecommerce.Dominio.Util
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
-        private readonly ChatbotContentService _chatBotContentService;
+        private readonly IChatbotContentService _chatBotContentService;
 
-        public ChatbotOpenAI(IConfiguration configuration, ChatbotContentService chatBotContentService)
+        public ChatbotOpenAI(IConfiguration configuration, IChatbotContentService chatBotContentService)
         {
             _httpClient = new HttpClient();
             _apiKey = configuration["OpenAI:ApiKey"];

@@ -1,15 +1,12 @@
-﻿using Ecommerce.Dominio.Entities;
+﻿using Ecommerce.Application.Services;
+using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IRepository;
+using Ecommerce.Dominio.IService;
 using Ecommerce.Dominio.ValueObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Ecommerce.Dominio.Services
+namespace EEcommerce.Application.Services
 {
-    public class PedidoService
+    public class PedidoService : IPedidoService
     {
         private readonly IPedidoRepository _pedidoRepository;
         private readonly IUsuarioRepository _usuarioRepository;

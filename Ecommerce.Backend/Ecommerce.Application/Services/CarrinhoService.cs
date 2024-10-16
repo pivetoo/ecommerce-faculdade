@@ -1,10 +1,11 @@
 ﻿using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IRepository;
+using Ecommerce.Dominio.IService;
 using Ecommerce.Dominio.ValueObjects;
 
-namespace Ecommerce.Dominio.Services
+namespace Ecommerce.Application.Services
 {
-    public class CarrinhoService
+    public class CarrinhoService : ICarrinhoService
     {
         private readonly ICarrinhoRepository _carrinhoRepository;
         private readonly IUsuarioRepository _usuariosRepository;

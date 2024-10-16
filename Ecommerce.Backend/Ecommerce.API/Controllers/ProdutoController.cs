@@ -1,5 +1,5 @@
 ﻿using Ecommerce.Dominio.Entities;
-using Ecommerce.Dominio.Services;
+using Ecommerce.Dominio.IService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +9,9 @@ namespace Ecommerce.API.Controllers
     [ApiController]
     public class ProdutoController : ControllerBase
     {
-        private readonly ProdutoService _produtoService;
+        private readonly IProdutoService _produtoService;
 
-        public ProdutoController(ProdutoService produtoService)
+        public ProdutoController(IProdutoService produtoService)
         {
             _produtoService = produtoService;
         }

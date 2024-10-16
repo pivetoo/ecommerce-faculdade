@@ -1,9 +1,10 @@
 ﻿using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IRepository;
+using Ecommerce.Dominio.IService;
 
-namespace Ecommerce.Dominio.Services
+namespace Ecommerce.Application.Services
 {
-    public class CategoriaService
+    public class CategoriaService : ICategoriaService
     {
         private readonly ICategoriaRepository _categoriaRepository;
 

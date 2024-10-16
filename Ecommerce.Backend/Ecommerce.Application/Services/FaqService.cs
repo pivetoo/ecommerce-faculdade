@@ -1,9 +1,10 @@
 ﻿using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IRepository;
+using Ecommerce.Dominio.IService;
 
-namespace Ecommerce.Dominio.Services
+namespace Ecommerce.Application.Services
 {
-    public class FaqService
+    public class FaqService : IFaqService
     {
         private readonly IFaqRepository _faqRepository;
 

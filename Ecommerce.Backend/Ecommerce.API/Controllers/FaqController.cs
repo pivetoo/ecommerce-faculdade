@@ -1,6 +1,5 @@
 ﻿using Ecommerce.Dominio.Entities;
-using Ecommerce.Dominio.Services;
-using Microsoft.AspNetCore.Authorization;
+using Ecommerce.Dominio.IService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.API.Controllers
@@ -9,10 +8,10 @@ namespace Ecommerce.API.Controllers
     [ApiController]
     public class FAQController : ControllerBase
     {
-        private readonly FaqService _faqService;
+        private readonly IFaqService _faqService;
         private readonly IWebHostEnvironment _env;
 
-        public FAQController(FaqService faqService, IWebHostEnvironment env)
+        public FAQController(IFaqService faqService, IWebHostEnvironment env)
         {
             _faqService = faqService;
             _env = env;

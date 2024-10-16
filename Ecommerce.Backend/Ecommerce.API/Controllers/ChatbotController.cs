@@ -1,4 +1,4 @@
-﻿using Ecommerce.API.DTOs;
+﻿using Ecommerce.Application.DTOs;
 using Ecommerce.Dominio.Util;
 using Microsoft.AspNetCore.Mvc;
 
