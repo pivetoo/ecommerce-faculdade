@@ -33,16 +33,16 @@ namespace Ecommerce.IoC
             services.AddScoped<IPedidoService, PedidoService>();
 
             services.AddScoped<IProdutoRepository, ProdutoRepository>();
-            services.AddScoped<ProdutoService>();
+            services.AddScoped<IProdutoService, ProdutoService>();
 
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            services.AddScoped<UsuarioService>();
+            services.AddScoped<IUsuarioService, UsuarioService>();
 
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
-            services.AddScoped<CategoriaService>();
+            services.AddScoped<ICategoriaService, CategoriaService>();
 
             services.AddScoped<IFaqRepository, FaqRepository>();
-            services.AddScoped<FaqService>();
+            services.AddScoped<IFaqService, FaqService>();
 
             services.AddScoped<IChatbotContentRepository, ChatbotContentRepository>();
             services.AddScoped<IChatbotContentService, ChatbotContentService>();
