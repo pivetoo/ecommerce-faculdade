@@ -7,6 +7,7 @@ import Perfil from '../views/Perfil.vue';
 import Sobre from '../views/Sobre.vue';
 import Chatbot from '../views/Chatbot.vue';
 import Loja from '../views/Loja.vue';
+import Notificacoes from '../views/Notificacoes.vue';
 
 const routes = [
   {
@@ -48,6 +49,11 @@ const routes = [
     path: "/loja",
     name: "Loja",
     component: Loja
+  },
+  {
+    path: "/notificacoes",
+    name: "Notificações",
+    component: Notificacoes
   }
 ];
 
