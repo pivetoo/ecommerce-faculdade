@@ -5,6 +5,9 @@
     </div>
 
     <nav class="nav flex-column align-items-center mt-3">
+      <router-link to="/loja" class="nav-link py-2">
+        <span class="material-symbols-outlined">shopping_cart</span>
+      </router-link>
       <router-link to="/dashboard" class="nav-link py-2">
         <span class="material-symbols-outlined">grid_view</span>
       </router-link>
