@@ -1,6 +1,5 @@
 ﻿using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IService;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.API.Controllers
@@ -41,7 +40,6 @@ namespace Ecommerce.API.Controllers
             return Ok(new { imageUrl });
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CriarProduto(Produto produto)
         {
@@ -49,7 +47,6 @@ namespace Ecommerce.API.Controllers
             return Ok("Produto criado com sucesso!");
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> ListarProdutoPorId(long id)
         {
@@ -57,7 +54,6 @@ namespace Ecommerce.API.Controllers
             return Ok(produto);
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> ListarTodosProdutos()
         {
@@ -65,7 +61,6 @@ namespace Ecommerce.API.Controllers
             return Ok(produtos);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<IActionResult> AtualizarProduto(Produto produto)
         {
@@ -73,7 +68,6 @@ namespace Ecommerce.API.Controllers
             return Ok("Produto atualizado com sucesso!");
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> ExcluirProduto(long id)
         {

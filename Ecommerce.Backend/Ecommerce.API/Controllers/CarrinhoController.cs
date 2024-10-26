@@ -1,6 +1,5 @@
 ﻿using Ecommerce.Application.DTOs;
 using Ecommerce.Dominio.IService;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.API.Controllers
@@ -16,7 +15,6 @@ namespace Ecommerce.API.Controllers
             _carrinhoService = carrinhoService;
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet("{usuarioId}")]
         public async Task<IActionResult> ObterCarrinhoPorUsuario(long usuarioId)
         {
@@ -24,7 +22,6 @@ namespace Ecommerce.API.Controllers
             return Ok(carrinho);
         }
 
-        [Authorize]
         [HttpPost("adicionar")]
         public async Task<IActionResult> AdicionarProdutoAoCarrinho(CarrinhoDTO carrinhoDto)
         {
@@ -32,7 +29,6 @@ namespace Ecommerce.API.Controllers
             return Ok("Produto adicionado ao carrinho com sucesso!");
         }
 
-        [Authorize]
         [HttpDelete("remover")]
         public async Task<IActionResult> RemoverProdutoDoCarrinho(CarrinhoDTO carrinhoDto)
         {
@@ -40,7 +36,6 @@ namespace Ecommerce.API.Controllers
             return Ok("Produto removido do carrinho com sucesso!");
         }
 
-        [Authorize]
         [HttpPost("finalizar-compra")]
         public async Task<IActionResult> FinalizarCompra(long usuarioId)
         {
