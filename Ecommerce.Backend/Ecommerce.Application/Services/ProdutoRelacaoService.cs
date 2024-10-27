@@ -1,10 +1,11 @@
 ﻿using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IRepository;
+using Ecommerce.Dominio.IService;
 using Ecommerce.Dominio.ValueObjects;
 
 namespace Ecommerce.Application.Services
 {
-    public class ProdutoRelacaoService
+    public class ProdutoRelacaoService : IProdutoRelacaoService
     {
         private readonly IProdutoRelacaoRepository _produtoRelacaoRepository;
 
