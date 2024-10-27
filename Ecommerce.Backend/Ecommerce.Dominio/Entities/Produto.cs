@@ -13,6 +13,8 @@ namespace Ecommerce.Dominio.Entities
         [Required]
         public decimal Preco { get; set; }
         [Required]
+        [StringLength(1000)]
+        public string? ImagemUrl { get; set; }
         public int Quantidade { get; set; }
         [Required]
         public int Estoque { get; set; }

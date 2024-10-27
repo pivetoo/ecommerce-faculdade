@@ -20,6 +20,7 @@ namespace Ecommerce.Repositorio.Data
         public DbSet<PedidoItem> PedidosItems { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<ProdutoRelacao> ProdutoRelacoes { get; set; }
 
         public EcommerceDbContext(DbContextOptions<EcommerceDbContext> options) : base(options)
         { 

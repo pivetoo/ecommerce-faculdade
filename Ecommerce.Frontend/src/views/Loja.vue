@@ -80,10 +80,6 @@ export default {
   text-align: center;
 }
 
-.navbar {
-  justify-content: center;
-}
-
 .navbar ul {
   display: flex;
   gap: 15px;
@@ -96,6 +92,7 @@ export default {
   display: flex;
   gap: 10px;
   margin: 10px 0;
+  justify-content: center;
 }
 
 .filters button {

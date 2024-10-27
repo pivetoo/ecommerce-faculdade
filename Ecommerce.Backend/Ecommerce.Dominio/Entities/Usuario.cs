@@ -15,6 +15,7 @@ namespace Ecommerce.Dominio.Entities
         [Required]
         public string Cpf { get; set; }
         public string? Telefone { get; set; }
+        [StringLength(1000)]
         public string? ImagemUrl { get; set; }
         public string? Endereco { get; set; }
         public bool IsAdmin { get; set; }
