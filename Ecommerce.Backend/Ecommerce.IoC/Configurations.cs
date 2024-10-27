@@ -47,6 +47,9 @@ namespace Ecommerce.IoC
             services.AddScoped<IChatbotContentRepository, ChatbotContentRepository>();
             services.AddScoped<IChatbotContentService, ChatbotContentService>();
 
+            services.AddScoped<IProdutoRelacaoRepository, ProdutoRelacaoRepository>();
+            services.AddScoped<IProdutoRelacaoService, ProdutoRelacaoService>();
+
             services.AddScoped<ChatbotOpenAI>();
             return services;
         }
