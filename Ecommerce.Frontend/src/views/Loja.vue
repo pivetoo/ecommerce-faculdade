@@ -1,6 +1,5 @@
 <template>
   <div class="product-page">
-    <!-- Topo da página -->
     <header class="header">
       <nav class="navbar">
         <ul>
@@ -20,7 +19,6 @@
       </div>
     </header>
 
-    <!-- Lista de produtos -->
     <div class="product-list">
       <div class="product-card" v-for="product in products" :key="product.name">
         <img :src="product.image" :alt="product.name" />
@@ -29,7 +27,6 @@
       </div>
     </div>
 
-    <!-- Rodapé -->
     <footer class="footer">
       <div class="footer-section">
         <h4>Informações</h4>
@@ -74,10 +71,17 @@ export default {
 <style scoped>
 .product-page {
   padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
   text-align: center;
+}
+
+.navbar {
+  justify-content: center;
 }
 
 .navbar ul {
@@ -92,11 +96,10 @@ export default {
   display: flex;
   gap: 10px;
   margin: 10px 0;
-  justify-content: center;
 }
 
 .filters button {
-  border-radius: 20px; /* Borda arredondada */
+  border-radius: 20px;
   padding: 8px 16px;
   border: 1px solid #ddd;
   background-color: #f1f1f1;
@@ -113,6 +116,7 @@ export default {
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   margin-top: 20px;
+  flex: 1;
 }
 
 .product-card {
@@ -128,11 +132,11 @@ export default {
 }
 
 .footer {
+  margin-top: 15px;
   display: flex;
   justify-content: space-between;
   background-color: #f8f8f8;
   padding: 20px;
-  margin-top: 30px;
 }
 
 .footer-section h4, .newsletter h4 {
