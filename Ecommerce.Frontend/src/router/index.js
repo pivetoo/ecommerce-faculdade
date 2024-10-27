@@ -46,7 +46,7 @@ const routes = [
     component: Chatbot
   },
   {
-    path: "/loja",
+    path: "/ecommerce",
     name: "Loja",
     component: Loja
   },
