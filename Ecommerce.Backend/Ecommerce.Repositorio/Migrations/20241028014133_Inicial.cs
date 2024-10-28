@@ -67,7 +67,7 @@ namespace Ecommerce.Repositorio.Migrations
                     Senha = table.Column<string>(type: "text", nullable: false),
                     Cpf = table.Column<string>(type: "text", nullable: false),
                     Telefone = table.Column<string>(type: "text", nullable: true),
-                    ImagemUrl = table.Column<string>(type: "text", nullable: true),
+                    ImagemUrl = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     Endereco = table.Column<string>(type: "text", nullable: true),
                     IsAdmin = table.Column<bool>(type: "boolean", nullable: false),
                     CriadoEm = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -179,6 +179,7 @@ namespace Ecommerce.Repositorio.Migrations
                     Nome = table.Column<string>(type: "text", nullable: false),
                     Descricao = table.Column<string>(type: "text", nullable: false),
                     Preco = table.Column<decimal>(type: "numeric", nullable: false),
+                    ImagemUrl = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
                     Quantidade = table.Column<int>(type: "integer", nullable: false),
                     Estoque = table.Column<int>(type: "integer", nullable: false),
                     CategoriaId = table.Column<long>(type: "bigint", nullable: false),
@@ -286,6 +287,33 @@ namespace Ecommerce.Repositorio.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ProdutoRelacoes",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ProdutoId = table.Column<long>(type: "bigint", nullable: false),
+                    ProdutoRelacionadoId = table.Column<long>(type: "bigint", nullable: false),
+                    Tipo = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ProdutoRelacoes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ProdutoRelacoes_Produtos_ProdutoId",
+                        column: x => x.ProdutoId,
+                        principalTable: "Produtos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProdutoRelacoes_Produtos_ProdutoRelacionadoId",
+                        column: x => x.ProdutoRelacionadoId,
+                        principalTable: "Produtos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Avaliacoes_ProdutoId",
                 table: "Avaliacoes",
@@ -337,6 +365,16 @@ namespace Ecommerce.Repositorio.Migrations
                 column: "ProdutoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProdutoRelacoes_ProdutoId",
+                table: "ProdutoRelacoes",
+                column: "ProdutoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProdutoRelacoes_ProdutoRelacionadoId",
+                table: "ProdutoRelacoes",
+                column: "ProdutoRelacionadoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Produtos_CategoriaId",
                 table: "Produtos",
                 column: "CategoriaId");
@@ -370,6 +408,9 @@ namespace Ecommerce.Repositorio.Migrations
 
             migrationBuilder.DropTable(
                 name: "PedidosItems");
+
+            migrationBuilder.DropTable(
+                name: "ProdutoRelacoes");
 
             migrationBuilder.DropTable(
                 name: "Carrinhos");
