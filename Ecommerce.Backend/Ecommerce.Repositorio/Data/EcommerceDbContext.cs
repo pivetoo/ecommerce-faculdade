@@ -29,6 +29,10 @@ namespace Ecommerce.Repositorio.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Categoria>()
+                .Property(c => c.Nome)
+                .IsRequired(false);
         }
     }
 }

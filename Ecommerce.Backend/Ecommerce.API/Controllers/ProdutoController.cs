@@ -1,4 +1,5 @@
-﻿using Ecommerce.Dominio.Entities;
+﻿using Ecommerce.Application.DTOs;
+using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,8 +42,19 @@ namespace Ecommerce.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CriarProduto(Produto produto)
+        public async Task<IActionResult> CriarProduto(ProdutoDTO produtoDto)
         {
+            var produto = new Produto
+            {
+                Nome = produtoDto.Nome,
+                Descricao = produtoDto.Descricao,
+                Preco = produtoDto.Preco,
+                ImagemUrl = produtoDto.ImagemUrl,
+                Quantidade = produtoDto.Quantidade,
+                Estoque = produtoDto.Estoque,
+                Categoria = new Categoria { Id = produtoDto.CategoriaId }
+            };
+
             await _produtoService.CriarNovoProduto(produto);
             return Ok("Produto criado com sucesso!");
         }

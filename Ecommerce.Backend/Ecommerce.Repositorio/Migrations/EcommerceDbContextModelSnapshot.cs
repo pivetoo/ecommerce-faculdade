@@ -85,7 +85,6 @@ namespace Ecommerce.Repositorio.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Nome")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -334,7 +333,6 @@ namespace Ecommerce.Repositorio.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("ImagemUrl")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 

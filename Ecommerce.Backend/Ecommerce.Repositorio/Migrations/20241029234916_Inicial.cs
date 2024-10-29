@@ -18,7 +18,7 @@ namespace Ecommerce.Repositorio.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nome = table.Column<string>(type: "text", nullable: false)
+                    Nome = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -179,7 +179,7 @@ namespace Ecommerce.Repositorio.Migrations
                     Nome = table.Column<string>(type: "text", nullable: false),
                     Descricao = table.Column<string>(type: "text", nullable: false),
                     Preco = table.Column<decimal>(type: "numeric", nullable: false),
-                    ImagemUrl = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    ImagemUrl = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     Quantidade = table.Column<int>(type: "integer", nullable: false),
                     Estoque = table.Column<int>(type: "integer", nullable: false),
                     CategoriaId = table.Column<long>(type: "bigint", nullable: false),
