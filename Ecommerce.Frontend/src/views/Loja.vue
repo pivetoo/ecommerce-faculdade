@@ -109,23 +109,23 @@
     </div>
 
     <!-- Listagem de produtos da loja -->
-
     <div>
       <h3>Lista de Produtos</h3>
       <ul>
         <li v-for="product in filteredProducts" :key="product.id">
-          <input type="radio" :value="product.id" v-model="selectedProductId" />
-          <div>
+          <div @click="goToPurchasePage(product.id)" class="product-card">
             <strong>Nome:</strong> {{ product.name }}<br />
             <strong>Descrição:</strong> {{ product.description }}<br />
             <strong>Preço:</strong> {{ product.price }}<br />
-            <strong>Imagem:</strong> <img :src="product.imageURL" alt="Imagem do Produto"
-              style="width: 100px; height: auto;" /><br />
+            <strong>Imagem:</strong>
+            <img :src="product.imageURL" alt="Imagem do Produto" style="width: 100px; height: auto;" /><br />
             <strong>Quantidade:</strong> {{ product.quantity }}<br />
           </div>
         </li>
       </ul>
     </div>
+
+
 
     <!-- Rodapé -->
     <footer class="footer">
@@ -234,18 +234,21 @@ export default {
       this.showSuccessCard = true;
       this.email = "";
     },
+    goToPurchasePage(productId) {
+      this.$router.push({ path: `/product/${productId}` });
+    },
     subscribe() {
       if (!this.email) {
-        this.errorMessage = "O email é obrigatório."; // Define mensagem de erro
-        this.showSuccessCard = false; // Certifica-se de que o card de sucesso está oculto
+        this.errorMessage = "O email é obrigatório.";
+        this.showSuccessCard = false;
       } else {
-        this.errorMessage = ""; // Limpa a mensagem de erro
-        this.showSuccessCard = true; // Exibe o card de sucesso
-        this.email = ""; // Limpa o campo de email
+        this.errorMessage = "";
+        this.showSuccessCard = true;
+        this.email = "";
       }
     },
     closeCard() {
-      this.showSuccessCard = false; // Fecha o card
+      this.showSuccessCard = false;
     },
     toggleProductManager() {
       this.productManagerVisible = !this.productManagerVisible;
@@ -505,6 +508,18 @@ export default {
 .product-card img {
   width: 100%;
   border-radius: 8px;
+}
+
+.product-card {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+  transition: background-color 0.3s;
+}
+
+.product-card:hover {
+  background-color: #f0f0f0;
 }
 
 .footer {

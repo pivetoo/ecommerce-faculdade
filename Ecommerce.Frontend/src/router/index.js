@@ -9,6 +9,7 @@ import Chatbot from '../views/Chatbot.vue';
 import Loja from '../views/Loja.vue';
 import Notificacoes from '../views/Notificacoes.vue';
 import Carrinho from '../views/Carrinho.vue';
+import Compra from '../views/Compra.vue';
 
 const routes = [
   {
@@ -61,6 +62,11 @@ const routes = [
     name: "Carrinho",
     component: Carrinho
   },
+  {
+    path: '/product/:id',
+    name: "Compra",
+    component: Compra
+  }
 ];
 
 const router = createRouter({
