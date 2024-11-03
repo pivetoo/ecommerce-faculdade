@@ -3,28 +3,20 @@
     <header class="header">
       <!-- Nav Bar -->
       <nav class="navbar">
-        <ul>
-          <li>Novidades</li>
-          <li>Masculino</li>
-          <li>Feminino</li>
-          <li>Infantil</li>
-          <li>Acessórios</li>
           <div class="dropdown">
-            <button @click="toggleProductManager">Gerenciador de Produto</button>
+            <button @click="toggleProductManager" class="rounded-button">Gerenciador de Produtos</button>
             <div v-if="productManagerVisible" class="dropdown-content">
               <button @click="showAddForm">Adicionar Produto</button>
               <button @click="showUpdateForm" :disabled="!selectedProductId">Atualizar Produto</button>
               <button @click="deleteProduct" :disabled="!selectedProductId">Excluir Produto</button>
             </div>
           </div>
-        </ul>
       </nav>
 
       <!-- Filtros -->
       <div class="filters">
-
         <div class="dropdown">
-          <button @click="toggleDropdown('category')">Categoria</button>
+          <button @click="toggleDropdown('category')">Categoria<span class="dropdown-arrow"></span></button>
           <div v-if="dropdownVisible.category" class="dropdown-content">
             <select v-model="selectedCategory" @change="filterProducts">
               <option value="">Selecionar Categoria</option>
@@ -37,7 +29,7 @@
         </div>
 
         <div class="dropdown">
-          <button @click="toggleDropdown('brand')">Marca</button>
+          <button @click="toggleDropdown('brand')">Marca<span class="dropdown-arrow"></span></button>
           <div v-if="dropdownVisible.brand" class="dropdown-content">
             <select v-model="selectedBrand" @change="filterProducts">
               <option value="">Selecionar Marca</option>
@@ -50,7 +42,7 @@
         </div>
 
         <div class="dropdown">
-          <button @click="toggleDropdown('size')">Tamanho</button>
+          <button @click="toggleDropdown('size')">Tamanho<span class="dropdown-arrow"></span></button>
           <div v-if="dropdownVisible.size" class="dropdown-content">
             <select v-model="selectedSize" @change="filterProducts">
               <option value="">Selecionar Tamanho</option>
@@ -63,7 +55,7 @@
         </div>
 
         <div class="dropdown">
-          <button @click="toggleDropdown('color')">Cor</button>
+          <button @click="toggleDropdown('color')">Cor<span class="dropdown-arrow"></span></button>
           <div v-if="dropdownVisible.color" class="dropdown-content">
             <select v-model="selectedColor" @change="filterProducts">
               <option value="">Selecionar Cor</option>
@@ -76,7 +68,7 @@
         </div>
 
         <div class="dropdown">
-          <button @click="togglePriceInputs">Preço</button>
+          <button @click="togglePriceInputs">Preço<span class="dropdown-arrow"></span></button>
           <div v-if="priceInputsVisible" class="dropdown-content">
             <div class="price-inputs">
               <input type="number" v-model="priceRange[0]" @change="updatePriceRange" placeholder="Min" />
@@ -374,6 +366,39 @@ export default {
   flex-direction: column;
 }
 
+.rounded-button {
+  border-radius: 20px;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navbar {
+  background-color: #f1f1f1; 
+  padding: 10px 20px; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
+
+.navbar ul {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin: 0; 
+}
+
+.navbar li {
+  color: white; 
+}
+
+
+.rounded-button:hover {
+  background-color: #e0e0e0;
+}
+
 .header {
   text-align: center;
 }
@@ -411,29 +436,34 @@ export default {
 
 .success-card {
   background-color: #dff0d8;
-  /* Cor de fundo verde claro */
   border: 1px solid #d6e9c6;
-  /* Borda verde */
   color: #3c763d;
-  /* Cor do texto verde escuro */
   padding: 15px;
   border-radius: 5px;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  /* Coloca os itens em coluna */
   align-items: flex-start;
-  /* Alinha os itens à esquerda */
 }
+
+.dropdown-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 5px; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black; 
+  vertical-align: middle;
+}
+
 
 .close-button {
   background-color: transparent;
   border: none;
   color: red;
-  /* Cor do texto do botão "Fechar" */
   cursor: pointer;
   margin-top: 10px;
-  /* Adiciona espaço entre a mensagem e o botão */
 }
 
 .dropdown {
