@@ -8,6 +8,7 @@ import Sobre from '../views/Sobre.vue';
 import Chatbot from '../views/Chatbot.vue';
 import Loja from '../views/Loja.vue';
 import Notificacoes from '../views/Notificacoes.vue';
+import FinalizarCompra from '../views/FinalizarCompra.vue';
 
 const routes = [
   {
@@ -54,6 +55,11 @@ const routes = [
     path: "/notificacoes",
     name: "Notificações",
     component: Notificacoes
+  },
+  {
+    path: "/finalizarCompra",
+    name: "FinalizarCompra",
+    component: FinalizarCompra
   }
 ];
 
