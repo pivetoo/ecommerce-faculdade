@@ -78,6 +78,7 @@ cd ecommerce-faculdade/Ecommerce.Frontend
 2. Instale as dependências:
 ```bash
 npm install
+npm install axios
 ```
 3. Inicie o servidor de desenvolvimento:
 ```bash
