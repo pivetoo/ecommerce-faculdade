@@ -10,6 +10,7 @@ import Loja from '../views/Loja.vue';
 import Notificacoes from '../views/Notificacoes.vue';
 import Carrinho from '../views/Carrinho.vue';
 import Compra from '../views/Compra.vue';
+import Adiciona from '../views/AdicionaProduto.vue';
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     path: '/product/:id',
     name: "Compra",
     component: Compra
+  },
+  {
+    path: '/adicionaProduto',
+    name: "Adiciona Produto",
+    component: Adiciona
   }
 ];
 

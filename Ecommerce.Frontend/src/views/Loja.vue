@@ -1,18 +1,6 @@
 <template>
   <div class="product-page">
     <header class="header">
-      <!-- Nav Bar -->
-      <nav class="navbar">
-          <div class="dropdown">
-            <button @click="toggleProductManager" class="rounded-button">Gerenciador de Produtos</button>
-            <div v-if="productManagerVisible" class="dropdown-content">
-              <button @click="showAddForm">Adicionar Produto</button>
-              <button @click="showUpdateForm" :disabled="!selectedProductId">Atualizar Produto</button>
-              <button @click="deleteProduct" :disabled="!selectedProductId">Excluir Produto</button>
-            </div>
-          </div>
-      </nav>
-
       <!-- Filtros -->
       <div class="filters">
         <div class="dropdown">
@@ -29,45 +17,6 @@
         </div>
 
         <div class="dropdown">
-          <button @click="toggleDropdown('brand')">Marca<span class="dropdown-arrow"></span></button>
-          <div v-if="dropdownVisible.brand" class="dropdown-content">
-            <select v-model="selectedBrand" @change="filterProducts">
-              <option value="">Selecionar Marca</option>
-              <option v-for="brand in uniqueBrands" :key="brand" :value="brand">
-                {{ brand }}
-              </option>
-              <option v-if="uniqueBrands.length === 0">Sem opções disponíveis</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <button @click="toggleDropdown('size')">Tamanho<span class="dropdown-arrow"></span></button>
-          <div v-if="dropdownVisible.size" class="dropdown-content">
-            <select v-model="selectedSize" @change="filterProducts">
-              <option value="">Selecionar Tamanho</option>
-              <option v-for="size in uniqueSizes" :key="size" :value="size">
-                {{ size }}
-              </option>
-              <option v-if="uniqueSizes.length === 0">Sem opções disponíveis</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="dropdown">
-          <button @click="toggleDropdown('color')">Cor<span class="dropdown-arrow"></span></button>
-          <div v-if="dropdownVisible.color" class="dropdown-content">
-            <select v-model="selectedColor" @change="filterProducts">
-              <option value="">Selecionar Cor</option>
-              <option v-for="color in uniqueColors" :key="color" :value="color">
-                {{ color }}
-              </option>
-              <option v-if="uniqueColors.length === 0">Sem opções disponíveis</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="dropdown">
           <button @click="togglePriceInputs">Preço<span class="dropdown-arrow"></span></button>
           <div v-if="priceInputsVisible" class="dropdown-content">
             <div class="price-inputs">
@@ -79,26 +28,6 @@
         </div>
       </div>
     </header>
-
-    <!-- Formulário do Gerenciador de Produtos -->
-    <div class="product-manager">
-      <div v-if="showForm" class="product-form">
-        <h3>{{ isEditing ? "Atualizar Produto" : "Adicionar Produto" }}</h3>
-        <form @submit.prevent="isEditing ? updateProduct() : createProduct()">
-          <input v-model="form.nome" placeholder="Nome" required />
-          <input v-model="form.descricao" placeholder="Descrição" required />
-          <input v-model.number="form.preco" placeholder="Preço" required type="number" />
-          <input v-model="form.imagemUrl" placeholder="Imagem URL" required />
-          <input v-model.number="form.quantidade" placeholder="Quantidade" required type="number" />
-          <input v-model="form.categoriaId" placeholder="Categoria ID" required />
-          <input v-model="form.cor" placeholder="Cor" required />
-          <input v-model="form.tamanho" placeholder="Tamanho" required />
-          <button type="submit">{{ isEditing ? "Atualizar" : "Adicionar" }}</button>
-        </form>
-
-        <button @click="cancelAction">Cancelar</button>
-      </div>
-    </div>
 
     <!-- Listagem de produtos da loja -->
     <div>
@@ -150,9 +79,6 @@
     </footer>
   </div>
 </template>
-
-
-
 
 <script>
 import axios from "axios";
@@ -211,7 +137,7 @@ export default {
   methods: {
     async fetchProducts() {
       try {
-        const response = await axios.get("https://localhost:7172/api/produto");
+        const response = await axios.get("https://localhost:7172/api/Produto");
         this.products = response.data;
         this.filteredProducts = this.products;
         this.getCategories();
@@ -267,14 +193,6 @@ export default {
       this.brands = [...new Set(this.products.map(product => product.brand))];
     },
 
-    getSizes() {
-      this.sizes = [...new Set(this.products.map(product => product.size))];
-    },
-
-    getColors() {
-      this.colors = [...new Set(this.products.map(product => product.color))];
-    },
-
     toggleDropdown() {
       this.dropdownVisible = !this.dropdownVisible;
     },
@@ -288,57 +206,6 @@ export default {
         this.priceRange[1] = this.priceRange[0] + 1;
       }
       this.filterProducts();
-    },
-
-    showAddForm() {
-      this.resetForm();
-      this.showForm = true;
-      this.isEditing = false;
-    },
-
-    showUpdateForm() {
-      if (this.selectedProductId) {
-        const product = this.products.find(p => p.id === this.selectedProductId);
-        this.form = { ...product };
-        this.showForm = true;
-        this.isEditing = true;
-      }
-    },
-
-    async createProduct() {
-      try {
-        const response = await axios.post("https://localhost:7172/api/produto", this.form);
-        this.products.push(response.data);
-        this.cancelAction();
-        this.filterProducts();
-      } catch (error) {
-        console.error("Erro ao criar produto:", error);
-      }
-    },
-
-    async updateProduct() {
-      try {
-        const response = await axios.put(`https://localhost:7172/api/produto/${this.form.id}`, this.form);
-        const index = this.products.findIndex(p => p.id === this.form.id);
-        this.products[index] = response.data;
-        this.cancelAction();
-        this.filterProducts();
-      } catch (error) {
-        console.error("Erro ao atualizar produto:", error);
-      }
-    },
-
-    async deleteProduct() {
-      if (this.selectedProductId) {
-        try {
-          await axios.delete(`https://localhost:7172/api/produto/${this.selectedProductId}`);
-          this.products = this.products.filter(p => p.id !== this.selectedProductId);
-          this.selectedProductId = null;
-          this.filterProducts();
-        } catch (error) {
-          console.error("Erro ao deletar produto:", error);
-        }
-      }
     },
 
     cancelAction() {

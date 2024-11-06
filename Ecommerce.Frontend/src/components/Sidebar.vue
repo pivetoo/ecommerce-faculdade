@@ -14,6 +14,9 @@
       <router-link to="/chat-bot" class="nav-link py-2">
         <span class="material-symbols-outlined">smart_toy</span>
       </router-link>
+      <router-link to="/adicionaProduto" class="nav-link py-2">
+        <span class="material-symbols-outlined">add_shopping_cart</span>
+      </router-link>
     </nav>
 
     <div class="sidebar-footer mt-auto p-3 d-flex flex-column align-items-center">
