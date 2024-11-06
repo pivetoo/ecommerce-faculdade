@@ -1,25 +1,10 @@
 <template>
   <div>
-    <!-- Navbar -->
-    <nav class="navbar">
-      <ul class="nav-links">
-        <li><a href="#">Início</a></li>
-        <li><a href="#">Produtos</a></li>
-        <li><a href="#">Sobre nós</a></li>
-        <li><a href="#">Contato</a></li>
-        <li><a href="#">Minha conta</a></li>
-      </ul>
-      <div class="nav-icons">
-        <i class="fas fa-search"></i>
-        <i class="fas fa-shopping-cart"></i>
-        <i class="fas fa-user"></i>
-      </div>
-    </nav>
-
+    <Navbar />
     <div class="container">
       <!-- Cart Items -->
       <div class="cart-items">
-        <div v-for="(item, index) in cartItems" :key="index" class="cart-item">
+        <div v-if="!loading" v-for="(item, index) in cartItems" :key="index" class="cart-item">
           <img :src="item.image" alt="Imagem do Produto" class="product-image" />
           <div class="item-details">
             <h3 class="item-name">{{ item.name }}</h3>
@@ -37,6 +22,7 @@
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
+        <div v-if="loading" class="loading">Carregando...</div>
       </div>
 
       <!-- Order Summary -->
@@ -59,26 +45,26 @@
           <span>R$ {{ (subtotal + 20).toFixed(2) }}</span>
         </div>
         <button class="checkout-button">Fazer pedido</button>
-        <div class="promo-code">
-          <input type="text" placeholder="Código promocional" class="promo-input" />
-          <button class="apply-button">Aplicar</button>
-        </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+import Navbar from '../components/Navbar.vue';
+
 export default {
+  name: 'Carrinho',
+    components: {
+        Navbar,
+    },
+
   data() {
     return {
-      cartItems: [
-        { name: "Camisa Polo", price: 79.9, quantity: 1, image: "link-para-imagem-da-camisa.jpg", sizeOptions: ["M"], selectedSize: "M" },
-        { name: "Tênis Esportivo", price: 199.9, quantity: 1, image: "link-para-imagem-do-tenis.jpg", sizeOptions: ["42"], selectedSize: "42" },
-        { name: "Calça Jeans", price: 129.9, quantity: 1, image: "link-para-imagem-da-calca.jpg", sizeOptions: ["G"], selectedSize: "G" },
-        { name: "Jaqueta de Couro", price: 299.9, quantity: 1, image: "link-para-imagem-da-jaqueta.jpg", sizeOptions: ["M"], selectedSize: "M" },
-        { name: "Relógio de Pulso", price: 499.9, quantity: 1, image: "link-para-imagem-do-relogio.jpg", sizeOptions: ["Único"], selectedSize: "Único" },
-      ],
+      cartItems: [],
+      loading: true
     };
   },
   computed: {
@@ -87,6 +73,17 @@ export default {
     }
   },
   methods: {
+    fetchCartItems() {
+      axios.get('https://localhost:7172/api/Carrinho/') 
+        .then(response => {
+          this.cartItems = response.data;
+          this.loading = false;
+        })
+        .catch(error => {
+          console.error("Erro ao buscar itens do carrinho:", error);
+          this.loading = false;
+        });
+    },
     increaseQuantity(index) {
       this.cartItems[index].quantity++;
     },
@@ -98,45 +95,14 @@ export default {
     removeItem(index) {
       this.cartItems.splice(index, 1);
     }
+  },
+  created() {
+    this.fetchCartItems();
   }
 };
 </script>
 
 <style scoped>
-/* Navbar styling */
-.navbar {
-  display: flex;
-  justify-content: center; 
-  padding: 16px 24px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.navbar > * {
-  margin: 0 12px; 
-}
-
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
-
-.nav-links li {
-  font-weight: 500;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: #333;
-}
-
-.nav-icons {
-  display: flex;
-  gap: 15px;
-  color: #333;
-}
-
 
 .container {
   display: flex;
@@ -236,7 +202,7 @@ export default {
 .order-summary {
   width: 30%;
   padding: 20px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
