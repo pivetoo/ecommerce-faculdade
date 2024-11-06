@@ -53,10 +53,8 @@
     <footer class="footer">
       <div class="footer-section">
         <h4>Informações</h4>
-        <p>Sobre Nós</p>
         <p>Contato</p>
         <p>Política de Privacidade</p>
-        <p>Trocas e Devoluções</p>
       </div>
       <div class="footer-section">
         <h4>Ajuda</h4>
@@ -102,9 +100,6 @@ export default {
         cor: "",
         tamanho: "",
       },
-      components: {
-        Navbar
-      },
       email: "",
       successMessage: "Parabéns, você agora faz parte da melhor Newsletter de moda do Brasil!",
       showSuccessCard: false,
@@ -124,6 +119,9 @@ export default {
       selectedColor: "",
       priceRange: [1, 1500],
     };
+  },
+  components: {
+    Navbar
   },
   computed: {
     uniqueCategories() {

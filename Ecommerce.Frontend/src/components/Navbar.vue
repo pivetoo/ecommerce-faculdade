@@ -2,11 +2,9 @@
     <div>
         <nav class="navbar">
             <ul class="nav-links">
-                <li><a href="#">Início</a></li>
-                <li><a href="#">Produtos</a></li>
-                <li><a href="sobrenos">Sobre nós</a></li>
-                <li><a href="#">Contato</a></li>
-                <li><a href="#">Minha conta</a></li>
+                <li><router-link to="/ecommerce">Inicio</router-link></li>   
+                <li><router-link to="/sobrenos">Sobre Nós</router-link></li>
+                <li><router-link to="/">Minha conta</router-link></li>
             </ul>
             <div class="nav-icons">
                 <i class="fas fa-search"></i>
@@ -18,6 +16,8 @@
 </template>
 
 <script>
+import { RouterLink } from 'vue-router';
+
 export default {
   name: "Navbar",
 };

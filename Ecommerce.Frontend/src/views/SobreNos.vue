@@ -50,9 +50,12 @@
     data() {
       return {
         teamMembers: [
-          { name: "Carlos Silva", role: "CEO e Fundador", photo: "https://via.placeholder.com/80" },
-          { name: "Ana Souza", role: "Gerente de Operações", photo: "https://via.placeholder.com/80" },
-          { name: "João Santos", role: "Desenvolvedor", photo: "https://via.placeholder.com/80" },
+          { name: "Gilmar Jr.", role: "Desenvolvedor", photo: "https://via.placeholder.com/80" },
+          { name: "Suelen Aleixo", role: "Desenvolvedor", photo: "https://via.placeholder.com/80" },
+          { name: "Breno Bernardo", role: "Desenvolvedor", photo: "https://via.placeholder.com/80" },
+          { name: "Pedro Nalon", role: "Desenvolvedor", photo: "https://via.placeholder.com/80" },
+          { name: "Rogério Pivetto", role: "Desenvolvedor", photo: "https://via.placeholder.com/80" },
+          { name: "Nicolas Bisilio", role: "Desenvolvedor", photo: "https://via.placeholder.com/80" },
         ],
       };
     },
