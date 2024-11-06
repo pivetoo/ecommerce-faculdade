@@ -11,12 +11,18 @@ import Notificacoes from '../views/Notificacoes.vue';
 import Carrinho from '../views/Carrinho.vue';
 import Compra from '../views/Compra.vue';
 import Adiciona from '../views/AdicionaProduto.vue';
+import SobreNos from '../views/SobreNos.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Login',
     component: Login
+  },
+  {
+    path: "/sobrenos",
+    name: "SobreNos",
+    component: SobreNos
   },
   {
     path: "/criar-conta",
