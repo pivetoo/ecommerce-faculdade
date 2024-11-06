@@ -4,7 +4,7 @@
             <ul class="nav-links">
                 <li><a href="#">Início</a></li>
                 <li><a href="#">Produtos</a></li>
-                <li><a href="#">Sobre nós</a></li>
+                <li><a href="sobrenos">Sobre nós</a></li>
                 <li><a href="#">Contato</a></li>
                 <li><a href="#">Minha conta</a></li>
             </ul>
