@@ -57,9 +57,9 @@ import Navbar from '../components/Navbar.vue';
 
 export default {
   name: 'Carrinho',
-    components: {
-        Navbar,
-    },
+  components: {
+    Navbar,
+  },
 
   data() {
     return {
@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     fetchCartItems() {
-      axios.get('https://localhost:7172/api/Carrinho/') 
+      axios.get('https://localhost:7172/api/Carrinho/')
         .then(response => {
           this.cartItems = response.data;
           this.loading = false;
@@ -103,7 +103,6 @@ export default {
 </script>
 
 <style scoped>
-
 .container {
   display: flex;
   justify-content: space-between;
@@ -231,17 +230,17 @@ export default {
 }
 
 .checkout-button[data-v-55bf0671] {
-    width: 100%;
-    padding: 12px;
-    background-color: #007bff; 
-    color: white; 
-    font-weight: bold;
-    text-align: center;
-    border: none; 
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); 
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
 }
 
 .checkout-button:hover {
@@ -262,13 +261,13 @@ export default {
 }
 
 .apply-button[data-v-55bf0671] {
-    padding: 10px 20px;
-    background-color: #007bff; 
-    color: white; 
-    border: none; 
-    border-radius: 0 8px 8px 0; 
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; 
-    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2); 
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
 }
 </style>
