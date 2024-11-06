@@ -1,6 +1,7 @@
 <template>
   <div class="product-page">
     <header class="header">
+      <Navbar />
       <!-- Filtros -->
       <div class="filters">
         <div class="dropdown">
@@ -82,7 +83,8 @@
 
 <script>
 import axios from "axios";
-
+import Navbar from '../components/Navbar.vue';
+;
 export default {
   data() {
     return {
@@ -99,6 +101,9 @@ export default {
         categoriaId: "",
         cor: "",
         tamanho: "",
+      },
+      components: {
+        Navbar
       },
       email: "",
       successMessage: "Parabéns, você agora faz parte da melhor Newsletter de moda do Brasil!",
@@ -243,9 +248,9 @@ export default {
 }
 
 .navbar {
-  background-color: #f1f1f1; 
-  padding: 10px 20px; 
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+  background-color: #f1f1f1;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .navbar ul {
@@ -254,11 +259,11 @@ export default {
   list-style: none;
   padding: 0;
   justify-content: center;
-  margin: 0; 
+  margin: 0;
 }
 
 .navbar li {
-  color: white; 
+  color: white;
 }
 
 
@@ -317,10 +322,10 @@ export default {
   display: inline-block;
   width: 0;
   height: 0;
-  margin-left: 5px; 
+  margin-left: 5px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
-  border-top: 5px solid black; 
+  border-top: 5px solid black;
   vertical-align: middle;
 }
 
