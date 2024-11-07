@@ -39,7 +39,6 @@
             <strong>Nome:</strong> {{ product.name }}<br />
             <strong>Descrição:</strong> {{ product.description }}<br />
             <strong>Preço:</strong> {{ product.price }}<br />
-            <strong>Imagem:</strong>
             <img :src="product.imageURL" alt="Imagem do Produto" style="width: 100px; height: auto;" /><br />
             <strong>Quantidade:</strong> {{ product.quantity }}<br />
           </div>
