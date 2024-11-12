@@ -36,11 +36,11 @@
       <ul>
         <li v-for="product in filteredProducts" :key="product.id">
           <div @click="goToPurchasePage(product.id)" class="product-card">
-            <strong>Nome:</strong> {{ product.name }}<br />
-            <strong>Descrição:</strong> {{ product.description }}<br />
-            <strong>Preço:</strong> {{ product.price }}<br />
-            <img :src="product.imageURL" alt="Imagem do Produto" style="width: 100px; height: auto;" /><br />
-            <strong>Quantidade:</strong> {{ product.quantity }}<br />
+            <strong>Nome:</strong> {{ product.nome }}<br />
+            <strong>Descrição:</strong> {{ product.descricao }}<br />
+            <strong>Preço:</strong> {{ product.preco }}<br />
+            <img :src="product.imagemUrl" alt="Imagem do Produto" style="width: 100px; height: auto;" /><br />
+            <strong>Quantidade:</strong> {{ product.quantidade }}<br />
           </div>
         </li>
       </ul>
@@ -95,9 +95,6 @@ export default {
         preco: null,
         imagemUrl: "",
         quantidade: null,
-        categoriaId: "",
-        cor: "",
-        tamanho: "",
       },
       email: "",
       successMessage: "Parabéns, você agora faz parte da melhor Newsletter de moda do Brasil!",
@@ -126,9 +123,6 @@ export default {
     uniqueCategories() {
       return [...new Set(this.products.map(product => product.category))];
     },
-    uniqueBrands() {
-      return [...new Set(this.products.map(product => product.brand))];
-    },
     uniqueSizes() {
       return [...new Set(this.products.map(product => product.size))];
     },
@@ -140,16 +134,14 @@ export default {
     async fetchProducts() {
       try {
         const response = await axios.get("https://localhost:7172/api/Produto");
-        this.products = response.data;
+        // Acesse diretamente o array de produtos dentro de $values
+        this.products = response.data.$values || [];
         this.filteredProducts = this.products;
-        this.getCategories();
-        this.getBrands();
-        this.getSizes();
-        this.getColors();
       } catch (error) {
         console.error("Erro ao carregar produtos:", error);
       }
     },
+
     subscribe() {
       this.showSuccessCard = true;
       this.email = "";
@@ -185,10 +177,6 @@ export default {
 
         return matchesCategory && matchesBrand && matchesSize && matchesColor && matchesPrice;
       });
-    },
-
-    getCategories() {
-      this.categories = [...new Set(this.products.map(product => product.category))];
     },
 
     getBrands() {
