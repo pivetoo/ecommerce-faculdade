@@ -216,6 +216,121 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 380px; /* Tamanho mínimo para garantir espaço suficiente */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.product-card {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+  transition: background-color 0.3s;
+}
+
+.product-card:hover {
+  background-color: #f0f0f0;
+}
+
+.footer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #f8f8f8;
+  padding: 20px;
+}
+
+.newsletter input[type="email"] {
+  padding: 8px;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+.product-page {
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.filters button {
+  border-radius: 20px;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filters button:hover {
+  background-color: #e0e0e0;
+}
+
+.success-card {
+  background-color: #dff0d8;
+  border: 1px solid #d6e9c6;
+  color: #3c763d;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dropdown-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+  vertical-align: middle;
+}
+
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-top: 20px;
+  flex: 1;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 450px; /* Aumentando a largura do card */
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -234,7 +349,7 @@ export default {
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
