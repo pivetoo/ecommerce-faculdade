@@ -20,6 +20,13 @@ namespace Ecommerce.Application.Services
 
         public async Task<bool> CriarNovoProduto(Produto produto)
         {
+            var categoria = await _produtoRepository.RetornarCategoriaPorId(produto.CategoriaId);
+            if (categoria == null)
+            {
+                throw new KeyNotFoundException("Categoria não encontrada.");
+            }
+
+            produto.Categoria = categoria;
             await _produtoRepository.Incluir(produto);
             return true;
         }

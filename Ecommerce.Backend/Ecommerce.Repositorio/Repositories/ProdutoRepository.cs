@@ -18,6 +18,12 @@ namespace Ecommerce.Repositorio.Repositories
         {
             return await _context.Produtos.FirstOrDefaultAsync(p => p.Id == id);
         }
+        
+        public async Task<Categoria> RetornarCategoriaPorId(long id)
+        {
+            return await _context.Categorias.FirstOrDefaultAsync(c => c.Id == id);
+        }
+
 
         public async Task<IEnumerable<Produto>> RetornarTodos()
         {

@@ -52,12 +52,13 @@ namespace Ecommerce.API.Controllers
                 ImagemUrl = produtoDto.ImagemUrl,
                 Quantidade = produtoDto.Quantidade,
                 Estoque = produtoDto.Estoque,
-                Categoria = new Categoria { Id = produtoDto.CategoriaId }
+                CategoriaId = produtoDto.CategoriaId
             };
 
             await _produtoService.CriarNovoProduto(produto);
             return Ok("Produto criado com sucesso!");
         }
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> ListarProdutoPorId(long id)

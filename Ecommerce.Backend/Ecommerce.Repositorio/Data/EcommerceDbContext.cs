@@ -30,9 +30,11 @@ namespace Ecommerce.Repositorio.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Categoria>()
-                .Property(c => c.Nome)
-                .IsRequired(false);
+            modelBuilder.Entity<Produto>()
+                .HasOne(p => p.Categoria)
+                .WithMany(c => c.Produtos)
+                .HasForeignKey(p => p.CategoriaId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

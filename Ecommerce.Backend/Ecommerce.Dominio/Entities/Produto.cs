@@ -6,6 +6,8 @@ namespace Ecommerce.Dominio.Entities
     {
         [Key]
         public long Id { get; set; }
+        public long CategoriaId { get; set; }
+        public Categoria Categoria { get; set; }
         [Required]
         public string Nome { get; set; }
         [Required]
@@ -17,7 +19,6 @@ namespace Ecommerce.Dominio.Entities
         public int Quantidade { get; set; }
         [Required]
         public int Estoque { get; set; }
-        public Categoria Categoria { get; set; }
         public DateTime? CriadoEm { get; set; }
         public double NotaMedia { get; set; }
         public IList<Avaliacao> Avaliacoes { get; set; }
