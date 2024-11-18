@@ -4,24 +4,34 @@
     <!-- Botões de Ação -->
     <button @click="showAddForm" class="rounded-button">Adicionar Produto</button>
     <button @click="showUpdateForm" :disabled="!selectedProductId" class="rounded-button">Editar Produto</button>
-    <button @click="deleteProduct" :disabled="!selectedProductId" class="rounded-button">Excluir Produto</button>
+    <button @click="confirmDeleteProduct" :disabled="!selectedProductId" class="rounded-button">Excluir Produto</button>
+
+    <!-- Lista de Produtos -->
+    <ul>
+      <li v-for="product in products" :key="product.id" @click="toggleSelectProduct(product.id)"
+        :class="{ 'selected': product.id === selectedProductId }">
+        <span>{{ product.nome }}</span>
+        <div v-if="product.id === selectedProductId" class="check-icon">✔</div>
+      </li>
+    </ul>
 
     <!-- Formulário de Adição/Alteração de Produto -->
     <div v-if="showForm" class="form-container">
       <h2>{{ isEditing ? "Editar Produto" : "Adicionar Produto" }}</h2>
-      <form @submit.prevent="isEditing ? updateProduct() : createProduct">
+      <form @submit.prevent="isEditing ? updateProduct() : createProduct()">
         <input type="text" v-model="form.nome" placeholder="Nome do Produto" required />
         <input type="text" v-model="form.descricao" placeholder="Descrição" required />
-        <input type="number" v-model="form.preco" placeholder="Preço" required step="0.01"/>
+        <input type="number" v-model="form.preco" placeholder="Preço" required step="0.01" />
         <input type="text" v-model="form.imagemUrl" placeholder="URL da Imagem" />
         <input type="number" v-model="form.quantidade" placeholder="Quantidade" required />
-        <select v-model="form.categoriaId">
-          <option value="">Selecione a Categoria</option>
-          <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.nome }}</option>
-        </select>
         <button type="submit">{{ isEditing ? "Salvar alterações" : "Adicionar Produto" }}</button>
         <button @click="cancelAction" type="button">Cancelar</button>
       </form>
+    </div>
+
+    <!-- Mensagem de Sucesso ou Erro -->
+    <div v-if="message" :class="messageType" class="message">
+      {{ message }}
     </div>
   </div>
 </template>
@@ -40,23 +50,20 @@ export default {
         preco: null,
         imagemUrl: "",
         quantidade: null,
-        categoriaId: "",
       },
       showForm: false,  // Controle para mostrar ou ocultar o formulário
       isEditing: false,  // Define se está em modo de edição
-      categories: [],    // Categoria de produtos (pode ser preenchida por API)
       products: [],      // Lista de produtos (pode ser preenchida por API)
+      message: "",       // Mensagem de sucesso ou erro
+      messageType: "",   // Tipo da mensagem ('success' ou 'error')
     };
   },
   methods: {
-    // Mostra o formulário para adicionar um novo produto
     showAddForm() {
       this.resetForm();
       this.showForm = true;
       this.isEditing = false;
     },
-
-    // Mostra o formulário para editar um produto existente
     showUpdateForm() {
       if (this.selectedProductId) {
         const product = this.products.find(p => p.id === this.selectedProductId);
@@ -65,79 +72,103 @@ export default {
         this.isEditing = true;
       }
     },
-
-    // Cria um novo produto via API
     async createProduct() {
       try {
         const response = await axios.post("https://localhost:7172/api/Produto", this.form);
-        this.products.push(response.data);  // Adiciona o produto à lista
+        this.products.push(response.data);
+        this.setMessage("Produto adicionado com sucesso!", "success");
         this.cancelAction();
       } catch (error) {
         console.error("Erro ao criar produto:", error);
+        this.setMessage("Erro ao criar produto. Tente novamente.", "error");
       }
     },
-
     // Atualiza um produto existente via API
     async updateProduct() {
       try {
         const response = await axios.put(`https://localhost:7172/api/Produto/${this.form.id}`, this.form);
         const index = this.products.findIndex(p => p.id === this.form.id);
         this.products[index] = response.data;  // Atualiza a lista de produtos
+        this.setMessage("Produto atualizado com sucesso!", "success");
         this.cancelAction();
       } catch (error) {
+        // Adicionando um log detalhado do erro para depuração
         console.error("Erro ao atualizar produto:", error);
-      }
-    },
-
-    // Deleta um produto via API
-    async deleteProduct() {
-      if (this.selectedProductId) {
-        try {
-          await axios.delete(`https://localhost:7172/api/Produto/${this.selectedProductId}`);
-          this.products = this.products.filter(p => p.id !== this.selectedProductId); // Remove o produto da lista
-          this.selectedProductId = null;
-        } catch (error) {
-          console.error("Erro ao deletar produto:", error);
+        if (error.response) {
+          // Resposta da API com status de erro
+          console.error("Erro na resposta:", error.response.data);
+          console.error("Status:", error.response.status);
+          this.setMessage(`Erro ao atualizar produto: ${error.response.data.message || error.response.statusText}`, "error");
+        } else if (error.request) {
+          // Requisição enviada, mas não houve resposta
+          console.error("Erro na requisição:", error.request);
+          this.setMessage("Erro ao conectar com o servidor. Tente novamente.", "error");
+        } else {
+          // Outro erro
+          console.error("Erro inesperado:", error.message);
+          this.setMessage("Erro inesperado ao atualizar produto. Tente novamente.", "error");
         }
       }
     },
 
-    // Cancela a ação (oculta o formulário)
+    confirmDeleteProduct() {
+      if (this.selectedProductId) {
+        const confirmation = window.confirm("Tem certeza de que deseja excluir este produto?");
+        if (confirmation) {
+          this.deleteProduct();
+        }
+      }
+    },
+    async deleteProduct() {
+      try {
+        await axios.delete(`https://localhost:7172/api/Produto/${this.selectedProductId}`);
+        this.products = this.products.filter(p => p.id !== this.selectedProductId);
+        this.selectedProductId = null;
+        this.setMessage("Produto excluído com sucesso!", "success");
+      } catch (error) {
+        console.error("Erro ao deletar produto:", error);
+        this.setMessage("Erro ao excluir produto. Tente novamente.", "error");
+      }
+    },
     cancelAction() {
       this.resetForm();
       this.showForm = false;
     },
-
-    // Reseta os dados do formulário
     resetForm() {
-      this.form = { id: null, nome: "", descricao: "", preco: null, categoriaId: "" };
+      this.form = { id: null, nome: "", descricao: "", preco: null, imagemUrl: "", quantidade: null };
       this.isEditing = false;
     },
-
-    // Busca categorias disponíveis
-    async fetchCategories() {
-      try {
-        const response = await axios.get("https://localhost:7172/api/Categoria");
-        this.categories = response.data;
-      } catch (error) {
-        console.error("Erro ao buscar categorias:", error);
-      }
+    setMessage(message, type) {
+      this.message = message;
+      this.messageType = type;
+      setTimeout(() => {
+        this.message = "";
+      }, 3000);
     },
-
-    // Busca produtos para preencher a lista (se necessário)
     async fetchProducts() {
       try {
         const response = await axios.get("https://localhost:7172/api/Produto");
-        this.products = response.data;
+        if (response.data && response.data.$values) {
+          this.products = response.data.$values;
+        } else {
+          this.products = Array.isArray(response.data) ? response.data : [];
+        }
+        this.setMessage("Produtos carregados com sucesso.", "success");
       } catch (error) {
         console.error("Erro ao buscar produtos:", error);
+        this.setMessage("Erro ao buscar produtos. Tente novamente.", "error");
+      }
+    },
+    toggleSelectProduct(productId) {
+      if (this.selectedProductId === productId) {
+        this.selectedProductId = null;
+      } else {
+        this.selectedProductId = productId;
       }
     },
   },
-
   mounted() {
-    this.fetchCategories();  // Busca as categorias quando o componente for montado
-    this.fetchProducts();    // Busca os produtos quando o componente for montado
+    this.fetchProducts();
   },
 };
 </script>
@@ -157,6 +188,8 @@ export default {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
 }
 
 .rounded-button {
@@ -194,5 +227,58 @@ form button {
 
 form button[type="button"] {
   background-color: #f44336;
+}
+
+.message {
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.error {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Estilos para a lista de produtos */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin: 5px 0;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+li.selected {
+  border-color: #4CAF50;
+  background-color: #e0ffe0;
+}
+
+.check-icon {
+  background-color: #4CAF50;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
 }
 </style>

@@ -6,10 +6,6 @@ import { RouterView } from 'vue-router'
 <template>
 
   <RouterView />
-
-  <div id="app">
-    <ProductPage />
-  </div>
   
 </template>
 
