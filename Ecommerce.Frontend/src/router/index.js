@@ -70,10 +70,10 @@ const routes = [
     component: Carrinho
   },
   {
-    path: '/product/:id',
-    name: "Compra",
+    path: '/comprar/:id',
+    name: 'Compra',
     component: Compra
-  },
+  },  
   {
     path: '/adicionaProduto',
     name: "Adiciona Produto",

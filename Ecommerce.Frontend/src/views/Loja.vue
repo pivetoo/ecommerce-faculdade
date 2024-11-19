@@ -1,5 +1,5 @@
 <template>
-  <div class="product-page">
+  <div class="product-page h-100 w-100 p-0">
     <header class="header">
       <Navbar />
       <!-- Filtros -->
@@ -18,22 +18,26 @@
     </header>
 
     <!-- Listagem de produtos da loja -->
-    <div class="product-list">
-      <div class="col-md-4" v-for="product in filteredProducts" :key="product.id">
-        <div class="card mb-5 shadow-sm">
-          <router-link :to="{ path: '/comprar', query: { id: product.id } }">
+    <div class="product-list w-100 px-5">
+      <div class="col-12 p-3" v-for="product in filteredProducts" :key="product.id">
+        <div class="card shadow-sm">
+          <!-- Link para página de compra -->
+          <router-link :to="{ path: '/comprar/' + product.id }">
             <img :src="product.imagemUrl" class="bd-placeholder-img card-img-top rounded-start" width="300" height="230"
               :alt="product.nome" />
           </router-link>
+
           <div class="card-body">
             <h5 class="card-title">{{ product.nome }}</h5>
             <p class="card-text">{{ product.descricao }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <router-link :to="{ path: '/comprar', query: { id: product.id } }"
-                  class="btn btn-sm btn-outline-secondary">Comprar</router-link>
-                <router-link :to="{ path: '/comprar', query: { id: product.id } }"
-                  class="btn btn-sm btn-outline-secondary">
+                <!-- Botão Comprar, linkando para a página de compra -->
+                <router-link :to="{ path: '/comprar/' + product.id }" class="btn btn-sm btn-outline-secondary">
+                  Comprar
+                </router-link>
+                <!-- Botão Adicionar ao Carrinho -->
+                <router-link :to="{ path: '/comprar/' + product.id }" class="btn btn-sm btn-outline-secondary">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                     class="bi bi-cart-plus" viewBox="0 0 16 16">
                     <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z" />
@@ -43,7 +47,8 @@
                 </router-link>
               </div>
               <div class="valor_inicial">
-                <medium style="color: #FF0000; font-size: 23px; font-weight: bold">R$ {{ product.preco.toFixed(2) }}
+                <medium style="color: #FF0000; font-size: 23px; font-weight: bold">
+                  R$ {{ product.preco.toFixed(2) }}
                 </medium>
               </div>
             </div>
@@ -206,20 +211,35 @@ export default {
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   margin-top: 20px;
   flex: 1;
+}
+
+@media (max-width: 900px) {
+  .product-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .product-list {
+    grid-template-columns: 1fr;
+  }
 }
 
 .card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 380px; /* Tamanho mínimo para garantir espaço suficiente */
+  min-height: 380px;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 20px;
+  width: 100%;
+  /* Garantir que os cartões ocupem toda a largura disponível */
+  height: auto;
 }
 
 .card img {
@@ -245,119 +265,6 @@ export default {
   margin-bottom: 15px;
 }
 
-.product-card {
-  cursor: pointer;
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin: 10px 0;
-  transition: background-color 0.3s;
-}
-
-.product-card:hover {
-  background-color: #f0f0f0;
-}
-
-.footer {
-  margin-top: 15px;
-  display: flex;
-  justify-content: space-between;
-  background-color: #f8f8f8;
-  padding: 20px;
-}
-
-.newsletter input[type="email"] {
-  padding: 8px;
-  margin-top: 5px;
-  margin-right: 5px;
-}
-.product-page {
-  padding: 20px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.filters {
-  display: flex;
-  gap: 10px;
-  margin: 10px 0;
-}
-
-.filters button {
-  border-radius: 20px;
-  padding: 8px 16px;
-  border: 1px solid #ddd;
-  background-color: #f1f1f1;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.filters button:hover {
-  background-color: #e0e0e0;
-}
-
-.success-card {
-  background-color: #dff0d8;
-  border: 1px solid #d6e9c6;
-  color: #3c763d;
-  padding: 15px;
-  border-radius: 5px;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.dropdown-arrow {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  margin-left: 5px;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid black;
-  vertical-align: middle;
-}
-
-.product-list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  margin-top: 20px;
-  flex: 1;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 450px; /* Aumentando a largura do card */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 20px;
-}
-
-.card img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.card-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.card-text {
-  font-size: 1rem;
-  color: #555;
-}
-
 .valor_inicial {
   font-size: 1.2rem;
 }
@@ -367,37 +274,25 @@ export default {
   gap: 10px;
 }
 
-footer {
-  margin-top: 30px;
+.footer {
+  margin-top: 40px;
   padding: 20px;
   background-color: #f8f9fa;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
 }
 
-.footer-section {
-  margin-bottom: 15px;
+.footer-section h4 {
+  margin-bottom: 10px;
 }
 
-.newsletter input {
-  padding: 8px;
-  margin-right: 10px;
-}
-
-.newsletter button {
-  padding: 8px 12px;
-  cursor: pointer;
+.newsletter {
+  width: 300px;
 }
 
 .error-message {
   color: red;
-  font-size: 0.9rem;
-}
-
-.close-button {
-  margin-top: 10px;
-  padding: 6px 10px;
-  background-color: #f0ad4e;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  font-size: 14px;
 }
 </style>
