@@ -14,6 +14,17 @@
             <button @click="filterProducts">Aplicar Filtros</button>
           </div>
         </div>
+
+        <!-- Filtro de Categorias -->
+        <div class="dropdown">
+          <button @click="toggleCategoryDropdown">Categoria<span class="dropdown-arrow"></span></button>
+          <div v-if="categoryDropdownVisible" class="dropdown-content">
+            <select v-model="selectedCategory" @change="filterProducts">
+              <option value="">Todas as Categorias</option>
+              <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.nome }}</option>
+            </select>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -23,8 +34,7 @@
         <div class="card shadow-sm">
           <!-- Link para página de compra -->
           <router-link :to="{ path: '/comprar/' + product.id }">
-            <img :src="product.imagemUrl" class="bd-placeholder-img card-img-top rounded-start" width="300" height="230"
-              :alt="product.nome" />
+            <img :src="product.imagemUrl" class="bd-placeholder-img card-img-top rounded-start" width="300" height="230" :alt="product.nome" />
           </router-link>
 
           <div class="card-body">
@@ -38,11 +48,9 @@
                 </router-link>
                 <!-- Botão Adicionar ao Carrinho -->
                 <router-link :to="{ path: '/comprar/' + product.id }" class="btn btn-sm btn-outline-secondary">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-cart-plus" viewBox="0 0 16 16">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
                     <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z" />
-                    <path
-                      d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
                   </svg>
                 </router-link>
               </div>
@@ -96,12 +104,15 @@ export default {
     return {
       products: [],
       filteredProducts: [],
+      categories: [],
+      selectedCategory: "", // Variável para armazenar a categoria selecionada
       email: "",
       successMessage: "Parabéns, você agora faz parte da melhor Newsletter de moda do Brasil!",
       showSuccessCard: false,
       errorMessage: "",
       priceInputsVisible: false,
       priceRange: [1, 1500],
+      categoryDropdownVisible: false, // Para controlar a visibilidade do dropdown de categorias
     };
   },
   components: {
@@ -114,8 +125,12 @@ export default {
         const response = await axios.get("https://localhost:7172/api/Produto");
         this.products = response.data.$values || [];
         this.filteredProducts = this.products;
+
+        // Busca as categorias
+        const categoryResponse = await axios.get("https://localhost:7172/api/Categoria");
+        this.categories = categoryResponse.data.$values || [];
       } catch (error) {
-        console.error("Erro ao carregar produtos:", error);
+        console.error("Erro ao carregar produtos ou categorias:", error);
       }
     },
 
@@ -136,12 +151,17 @@ export default {
     filterProducts() {
       this.filteredProducts = this.products.filter(product => {
         const matchesPrice = product.preco >= this.priceRange[0] && product.preco <= this.priceRange[1];
-        return matchesPrice;
+        const matchesCategory = this.selectedCategory ? product.categoriaId === this.selectedCategory : true;
+        return matchesPrice && matchesCategory;
       });
     },
 
     togglePriceInputs() {
       this.priceInputsVisible = !this.priceInputsVisible;
+    },
+
+    toggleCategoryDropdown() {
+      this.categoryDropdownVisible = !this.categoryDropdownVisible;
     },
 
     updatePriceRange() {

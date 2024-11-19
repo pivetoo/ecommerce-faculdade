@@ -1,7 +1,7 @@
 <template>
   <div class="product-manager">
     <h2>Gerenciador de Produtos</h2>
-    <!-- Botões de Ação -->
+    <!-- Botões de Ação para Produtos -->
     <button @click="showAddForm" class="rounded-button">Adicionar Produto</button>
     <button @click="showUpdateForm" :disabled="!selectedProductId" class="rounded-button">Editar Produto</button>
     <button @click="confirmDeleteProduct" :disabled="!selectedProductId" class="rounded-button">Excluir Produto</button>
@@ -34,6 +34,37 @@
       {{ message }}
     </div>
   </div>
+
+  <div class="category-manager">
+    <h2>Gerenciador de Categorias</h2>
+    <!-- Botões de Ação para Categorias -->
+    <button @click="showAddCategoryForm" class="rounded-button">Adicionar Categoria</button>
+    <button @click="confirmDeleteCategory" :disabled="!selectedCategoryId" class="rounded-button">Excluir Categoria</button>
+
+    <!-- Lista de Categorias -->
+    <ul>
+      <li v-for="category in categories" :key="category.id" @click="toggleSelectCategory(category.id)"
+        :class="{ 'selected': category.id === selectedCategoryId }">
+        <span>{{ category.nome }}</span>
+        <div v-if="category.id === selectedCategoryId" class="check-icon">✔</div>
+      </li>
+    </ul>
+
+    <!-- Formulário de Adição de Categoria -->
+    <div v-if="showCategoryForm" class="form-container">
+      <h2>{{ isEditingCategory ? "Editar Categoria" : "Adicionar Categoria" }}</h2>
+      <form @submit.prevent="isEditingCategory ? updateCategory() : createCategory()">
+        <input type="text" v-model="categoryForm.nome" placeholder="Nome da Categoria" required />
+        <button type="submit">{{ isEditingCategory ? "Salvar alterações" : "Adicionar Categoria" }}</button>
+        <button @click="cancelCategoryAction" type="button">Cancelar</button>
+      </form>
+    </div>
+
+    <!-- Mensagem de Sucesso ou Erro -->
+    <div v-if="categoryMessage" :class="categoryMessageType" class="message">
+      {{ categoryMessage }}
+    </div>
+  </div>
 </template>
 
 <script>
@@ -42,6 +73,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      // Dados para Gerenciamento de Produtos
       selectedProductId: null,  // Produto selecionado para edição ou exclusão
       form: {
         id: null,
@@ -56,9 +88,21 @@ export default {
       products: [],      // Lista de produtos (pode ser preenchida por API)
       message: "",       // Mensagem de sucesso ou erro
       messageType: "",   // Tipo da mensagem ('success' ou 'error')
+
+      // Dados para Gerenciamento de Categorias
+      selectedCategoryId: null,  // Categoria selecionada para edição ou exclusão
+      categoryForm: {
+        nome: "",  // Removido o id
+      },
+      showCategoryForm: false,  // Controle para mostrar ou ocultar o formulário de categoria
+      isEditingCategory: false,  // Define se está em modo de edição de categoria
+      categories: [],      // Lista de categorias (pode ser preenchida por API)
+      categoryMessage: "",  // Mensagem de sucesso ou erro de categoria
+      categoryMessageType: "",  // Tipo da mensagem ('success' ou 'error')
     };
   },
   methods: {
+    // Métodos para Gerenciamento de Produtos
     showAddForm() {
       this.resetForm();
       this.showForm = true;
@@ -83,34 +127,18 @@ export default {
         this.setMessage("Erro ao criar produto. Tente novamente.", "error");
       }
     },
-    // Atualiza um produto existente via API
     async updateProduct() {
       try {
         const response = await axios.put(`https://localhost:7172/api/Produto/${this.form.id}`, this.form);
         const index = this.products.findIndex(p => p.id === this.form.id);
-        this.products[index] = response.data;  // Atualiza a lista de produtos
+        this.products[index] = response.data;
         this.setMessage("Produto atualizado com sucesso!", "success");
         this.cancelAction();
       } catch (error) {
-        // Adicionando um log detalhado do erro para depuração
         console.error("Erro ao atualizar produto:", error);
-        if (error.response) {
-          // Resposta da API com status de erro
-          console.error("Erro na resposta:", error.response.data);
-          console.error("Status:", error.response.status);
-          this.setMessage(`Erro ao atualizar produto: ${error.response.data.message || error.response.statusText}`, "error");
-        } else if (error.request) {
-          // Requisição enviada, mas não houve resposta
-          console.error("Erro na requisição:", error.request);
-          this.setMessage("Erro ao conectar com o servidor. Tente novamente.", "error");
-        } else {
-          // Outro erro
-          console.error("Erro inesperado:", error.message);
-          this.setMessage("Erro inesperado ao atualizar produto. Tente novamente.", "error");
-        }
+        this.setMessage("Erro ao atualizar produto. Tente novamente.", "error");
       }
     },
-
     confirmDeleteProduct() {
       if (this.selectedProductId) {
         const confirmation = window.confirm("Tem certeza de que deseja excluir este produto?");
@@ -166,119 +194,119 @@ export default {
         this.selectedProductId = productId;
       }
     },
+
+    // Métodos para Gerenciamento de Categorias
+    showAddCategoryForm() {
+      this.resetCategoryForm();
+      this.showCategoryForm = true;
+      this.isEditingCategory = false;
+    },
+    async createCategory() {
+      try {
+        const response = await axios.post("https://localhost:7172/api/Categoria", {
+          nome: this.categoryForm.nome, // Envia apenas o nome da categoria
+        });
+        this.categories.push(response.data);
+        this.setCategoryMessage("Categoria adicionada com sucesso!", "success");
+        this.cancelCategoryAction();
+      } catch (error) {
+        console.error("Erro ao criar categoria:", error);
+        this.setCategoryMessage("Erro ao criar categoria. Tente novamente.", "error");
+      }
+    },
+    cancelCategoryAction() {
+      this.resetCategoryForm();
+      this.showCategoryForm = false;
+    },
+    resetCategoryForm() {
+      this.categoryForm = { nome: "" };
+      this.isEditingCategory = false;
+    },
+    setCategoryMessage(message, type) {
+      this.categoryMessage = message;
+      this.categoryMessageType = type;
+      setTimeout(() => {
+        this.categoryMessage = "";
+      }, 3000);
+    },
+    async fetchCategories() {
+      try {
+        const response = await axios.get("https://localhost:7172/api/Categoria");
+        this.categories = response.data.$values || response.data;
+        this.setCategoryMessage("Categorias carregadas com sucesso.", "success");
+      } catch (error) {
+        console.error("Erro ao buscar categorias:", error);
+        this.setCategoryMessage("Erro ao buscar categorias. Tente novamente.", "error");
+      }
+    },
+    toggleSelectCategory(categoryId) {
+      if (this.selectedCategoryId === categoryId) {
+        this.selectedCategoryId = null;
+      } else {
+        this.selectedCategoryId = categoryId;
+      }
+    },
+    confirmDeleteCategory() {
+      if (this.selectedCategoryId) {
+        const confirmation = window.confirm("Tem certeza de que deseja excluir esta categoria?");
+        if (confirmation) {
+          this.deleteCategory();
+        }
+      }
+    },
+    async deleteCategory() {
+      try {
+        await axios.delete(`https://localhost:7172/api/Categoria/${this.selectedCategoryId}`);
+        this.categories = this.categories.filter(c => c.id !== this.selectedCategoryId);
+        this.selectedCategoryId = null;
+        this.setCategoryMessage("Categoria excluída com sucesso!", "success");
+      } catch (error) {
+        console.error("Erro ao deletar categoria:", error);
+        this.setCategoryMessage("Erro ao excluir categoria. Tente novamente.", "error");
+      }
+    }
   },
-  mounted() {
+  created() {
     this.fetchProducts();
-  },
+    this.fetchCategories();
+  }
 };
 </script>
 
 <style scoped>
-/* Estilos para centralizar o formulário */
-.form-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 90%;
-  max-width: 400px;
+.selected {
+  font-weight: bold;
+  color: green;
 }
 
 .rounded-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
+  padding: 10px;
   margin: 10px;
   border-radius: 5px;
-  cursor: pointer;
-}
-
-.rounded-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
-form input,
-form select {
-  display: block;
-  margin: 10px 0;
-  padding: 8px;
-  width: 100%;
-  max-width: 300px;
-}
-
-form button {
-  background-color: #2196F3;
+  background-color: #28a745;
   color: white;
-  padding: 10px 20px;
   border: none;
   cursor: pointer;
-  margin: 10px 0;
-}
-
-form button[type="button"] {
-  background-color: #f44336;
 }
 
 .message {
   padding: 10px;
-  border-radius: 5px;
-  margin-top: 20px;
-  text-align: center;
+  margin-top: 10px;
 }
 
 .success {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #d4edda;
+  color: #155724;
 }
 
 .error {
-  background-color: #f44336;
-  color: white;
-}
-
-/* Estilos para a lista de produtos */
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  margin: 5px 0;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-li.selected {
-  border-color: #4CAF50;
-  background-color: #e0ffe0;
+  background-color: #f8d7da;
+  color: #721c24;
 }
 
 .check-icon {
-  background-color: #4CAF50;
-  color: white;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
+  display: inline-block;
+  margin-left: 10px;
+  color: green;
 }
 </style>
