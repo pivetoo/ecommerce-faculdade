@@ -9,7 +9,7 @@ import Chatbot from '../views/Chatbot.vue';
 import Loja from '../views/Loja.vue';
 import Notificacoes from '../views/Notificacoes.vue';
 import Carrinho from '../views/Carrinho.vue';
-import Compra from '../views/Compra.vue';
+import Compra from '../components/Compra.vue';
 import Adiciona from '../views/AdicionaProduto.vue';
 import SobreNos from '../views/SobreNos.vue';
 
