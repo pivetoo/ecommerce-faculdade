@@ -25,7 +25,7 @@
             <input type="password" id="confirmarSenha" v-model="confirmarSenha" required>
             <span v-if="confirmarSenhaErro" class="error-message">As senhas não coincidem</span>
           </div>
-          <button type="submit" :disabled="isSubmitting">Criar Conta</button>
+          <button id="criarContaButton" type="submit" :disabled="isSubmitting">Criar Conta</button>
         </form>
         <p class="ja-tem-conta">Já tem uma conta?</p>
         <router-link to="/" class="login-link">Faça login aqui</router-link>

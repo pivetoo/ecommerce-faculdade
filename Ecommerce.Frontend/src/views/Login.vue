@@ -13,7 +13,7 @@
             <label for="senha">Senha:</label>
             <input type="password" id="senha" v-model="senha" required>
           </div>
-          <button type="submit">Login</button>
+          <button id="loginButton" type="submit">Login</button>
         </form>
         <p class="criar-conta" />
         <router-link to="/criar-conta" class="forgot-senha">Criar uma conta</router-link>

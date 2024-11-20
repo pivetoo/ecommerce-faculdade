@@ -1,18 +1,14 @@
 <template>
     <div class="perfil-container">
-      <!-- Sidebar -->
       <Sidebar />
   
-      <!-- Perfil -->
       <div class="perfil-content">
         <h1>Perfil do Usuário</h1>
   
-        <!-- Imagem de Perfil -->
         <div class="perfil-imagem">
           <img :src="imageSrc || '/default-profile.png'" alt="Imagem do Usuário" />
         </div>
   
-        <!-- Informações do Usuário -->
         <div class="perfil-info">
           <div class="form-group">
             <label for="nome">Nome</label>
@@ -41,7 +37,6 @@
             <span v-if="telefoneErro" class="erro">{{ telefoneErro }}</span>
           </div>
   
-          <!-- Novo campo de Endereço -->
           <div class="form-group">
             <label for="endereco">Endereço</label>
             <input 
@@ -52,7 +47,7 @@
             />
           </div>
   
-          <button @click="salvarPerfil">Salvar</button>
+          <button id="salvarPerfil" @click="salvarPerfil">Salvar</button>
         </div>
       </div>
     </div>
@@ -78,8 +73,8 @@
           imageUrl: ''
         },
         imageSrc: null,
-        emailErro: null, // Para armazenar a mensagem de erro de email
-        telefoneErro: null, // Para armazenar a mensagem de erro de telefone
+        emailErro: null,
+        telefoneErro: null,
       };
     },
     methods: {
@@ -95,7 +90,6 @@
         return JSON.parse(jsonPayload);
       },
   
-      // Validação de email
       validarEmail() {
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!regexEmail.test(this.usuario.email)) {
@@ -105,7 +99,6 @@
         }
       },
   
-      // Validação de telefone
       validarTelefone() {
         const regexTelefone = /^(?:\(?\d{2}\)?[\s-]?)?(?:\d{4,5}[\s-]?\d{4})$/;
         if (!regexTelefone.test(this.usuario.telefone)) {
@@ -132,8 +125,8 @@
       },
   
       async salvarPerfil() {
-        this.validarEmail(); // Valida o email antes de salvar
-        this.validarTelefone(); // Valida o telefone antes de salvar
+        this.validarEmail(); 
+        this.validarTelefone();
         if (this.emailErro || this.telefoneErro) {
           alert("Erro: Verifique os campos antes de salvar.");
           return;
