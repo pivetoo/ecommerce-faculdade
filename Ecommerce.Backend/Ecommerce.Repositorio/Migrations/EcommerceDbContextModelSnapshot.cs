@@ -85,6 +85,7 @@ namespace Ecommerce.Repositorio.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -538,7 +539,7 @@ namespace Ecommerce.Repositorio.Migrations
                     b.HasOne("Ecommerce.Dominio.Entities.Categoria", "Categoria")
                         .WithMany("Produtos")
                         .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Ecommerce.Dominio.Entities.Pedido", null)

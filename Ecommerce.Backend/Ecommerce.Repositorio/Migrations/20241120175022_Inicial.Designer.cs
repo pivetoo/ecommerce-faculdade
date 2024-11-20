@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Ecommerce.Repositorio.Migrations
 {
     [DbContext(typeof(EcommerceDbContext))]
-    [Migration("20241029234916_Inicial")]
+    [Migration("20241120175022_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -88,6 +88,7 @@ namespace Ecommerce.Repositorio.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -541,7 +542,7 @@ namespace Ecommerce.Repositorio.Migrations
                     b.HasOne("Ecommerce.Dominio.Entities.Categoria", "Categoria")
                         .WithMany("Produtos")
                         .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Ecommerce.Dominio.Entities.Pedido", null)
