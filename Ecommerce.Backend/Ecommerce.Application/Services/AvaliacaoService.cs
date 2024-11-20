@@ -38,7 +38,7 @@ namespace Ecommerce.Application.Services
                 Produto = produto,
                 Nota = nota,
                 Comentario = comentario,
-                DataAvaliacao = DateTime.Now
+                DataAvaliacao = DateTime.UtcNow,
             };
 
             await _avaliacaoRepository.Incluir(avaliacao);
