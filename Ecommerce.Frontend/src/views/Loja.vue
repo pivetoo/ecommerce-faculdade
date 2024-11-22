@@ -105,14 +105,14 @@ export default {
       products: [],
       filteredProducts: [],
       categories: [],
-      selectedCategory: "", // Variável para armazenar a categoria selecionada
+      selectedCategory: "",
       email: "",
       successMessage: "Parabéns, você agora faz parte da melhor Newsletter de moda do Brasil!",
       showSuccessCard: false,
       errorMessage: "",
       priceInputsVisible: false,
       priceRange: [1, 1500],
-      categoryDropdownVisible: false, // Para controlar a visibilidade do dropdown de categorias
+      categoryDropdownVisible: false,
     };
   },
   components: {
@@ -178,7 +178,6 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos relevantes para a página de produtos */
 
 .product-page {
   padding: 20px;
@@ -191,6 +190,7 @@ export default {
   display: flex;
   gap: 10px;
   margin: 10px 0;
+  margin-left: 90px;
 }
 
 .filters button {
@@ -231,7 +231,7 @@ export default {
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   margin-top: 20px;
   flex: 1;
@@ -249,17 +249,22 @@ export default {
   }
 }
 
+@media (max-width: 600px) {
+  .btn-group {
+    justify-content: center;
+  }
+}
+
 .card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 380px;
+  padding: 16px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 20px;
-  width: 100%;
-  /* Garantir que os cartões ocupem toda a largura disponível */
-  height: auto;
+  background-color: #fff;
+  height: 100%;
+  width: 95%;
 }
 
 .card img {
@@ -271,7 +276,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  flex-grow: 1;
 }
 
 .card-title {
@@ -287,11 +292,15 @@ export default {
 
 .valor_inicial {
   font-size: 1.2rem;
+  color: #FF0000;
+  font-weight: bold;
+  white-space: nowrap;
 }
 
 .btn-group {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .footer {
@@ -314,5 +323,11 @@ export default {
 .error-message {
   color: red;
   font-size: 14px;
+}
+
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
