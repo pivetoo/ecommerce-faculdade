@@ -38,24 +38,33 @@
     <!-- Produtos Recomendados -->
     <div class="recommended-products" v-if="recommendedProducts.length > 0">
       <h3>Produtos Recomendados</h3>
-      <div class="product-list">
-        <div class="product-card" v-for="recommendedProduct in recommendedProducts" :key="recommendedProduct.id">
-          <img :src="recommendedProduct.imagemUrl" alt="Imagem do Produto" class="product-image-img" />
-          <h4>{{ recommendedProduct.nome }}</h4>
-          <p>{{ recommendedProduct.descricao }}</p>
-          <div class="price">
-            R$ {{ recommendedProduct.preco.toFixed(2) }}
+      <!-- Combo -->
+      <div class="combo" v-if="recommendedProducts.length > 0">
+        <div class="product-list">
+          <div class="product-card">
+            <img :src="product.imagemUrl" alt="Imagem do Produto Principal" class="product-image-img" />
+            <h4>{{ product.nome }}</h4>
+            <div class="price">R$ {{ product.preco.toFixed(2) }}</div>
           </div>
-          <button @click="adicionarAoCarrinho(recommendedProduct)" class="btn btn-outline-secondary">
-            Adicionar ao Carrinho
-          </button>
-          <button @click="showModal(recommendedProduct)" class="btn btn-outline-primary">
-            Ver Detalhes
-          </button>
+          <div v-for="recommendedProduct in recommendedProducts" :key="recommendedProduct.id" class="product-card">
+            <img :src="recommendedProduct.imagemUrl" alt="Imagem do Produto Sugerido" class="product-image-img" />
+            <h4>{{ recommendedProduct.nome }}</h4>
+            <div class="price">R$ {{ recommendedProduct.preco.toFixed(2) }}</div>
+          </div>
+        </div>
+        <div class="total-price" style="margin-top: 3%; margin-bottom: 3%;">
+          <strong style="font-size: 20px;">Total Combo: </strong>
+          <span style="color: green; font-size: 25px; font-weight: bold; ">
+            R$ {{ (product.preco + recommendedProducts[0].preco + recommendedProducts[1].preco).toFixed(2) }}
+          </span>
+        </div>
+
+        <div class="combo-actions">
+          <button @click="adicionarComboAoCarrinho" class="btn btn-primary">Adicionar Combo ao Carrinho</button>
+          <button @click="finalizarCompraCombo" class="btn btn-outline-secondary">Comprar Combo</button>
         </div>
       </div>
     </div>
-
     <!-- Modal de Produto -->
     <div v-if="showProductModal" class="product-modal">
       <div class="modal-content">
@@ -169,14 +178,23 @@ export default {
       // Filtrar produtos da mesma categoria e com preço maior que o produto principal
       const filteredProducts = this.allProducts.filter(
         (product) =>
-          product.categoriaId === this.product.categoriaId && product.preco > this.product.preco
+          product.categoriaId === this.product.categoriaId &&
+          product.preco > this.product.preco &&
+          product.id !== this.product.id // Adicionando a verificação de id para evitar repetição
       );
 
-      // Embaralhar os produtos filtrados aleatoriamente
-      const shuffledProducts = filteredProducts.sort(() => Math.random() - 0.5);
+      // Se não houver produtos com preço maior, pegar os mais próximos
+      if (filteredProducts.length < 2) {
+        const closestProducts = this.allProducts
+          .filter((product) => product.categoriaId === this.product.categoriaId && product.id !== this.product.id)
+          .sort((a, b) => Math.abs(a.preco - this.product.preco) - Math.abs(b.preco - this.product.preco));
 
-      // Selecionar os dois primeiros produtos embaralhados
-      this.recommendedProducts = shuffledProducts.slice(0, 2);
+        this.recommendedProducts = closestProducts.slice(0, 2);
+      } else {
+        // Embaralhar os produtos filtrados aleatoriamente
+        const shuffledProducts = filteredProducts.sort(() => Math.random() - 0.5);
+        this.recommendedProducts = shuffledProducts.slice(0, 2);
+      }
     },
 
     filterOtherProducts() {
@@ -190,28 +208,37 @@ export default {
     adicionarAoCarrinho(product = this.product) {
       alert(`Produto adicionado ao carrinho! Quantidade: ${this.quantidade}. Produto: ${product.nome}`);
     },
-    subscribe() {
-      if (!this.email) {
-        this.errorMessage = "O email é obrigatório.";
-        this.showSuccessCard = false;
-      } else {
-        this.errorMessage = "";
-        this.showSuccessCard = true;
-        this.email = "";
-      }
+    adicionarComboAoCarrinho() {
+      const totalComboPrice = this.product.preco + this.recommendedProducts[0].preco + this.recommendedProducts[1].preco;
+      alert(`Combo adicionado ao carrinho! Total: R$ ${totalComboPrice.toFixed(2)}`);
+    },
+    finalizarCompraCombo() {
+      const totalComboPrice = this.product.preco + this.recommendedProducts[0].preco + this.recommendedProducts[1].preco;
+      alert(`Compra de combo finalizada! Total: R$ ${totalComboPrice.toFixed(2)}`);
+    },
+    redirectToHome() {
+      this.$router.push("/");
+    },
+    openProductModal(product) {
+      this.selectedProduct = product;
+      this.showProductModal = true;
     },
     closeModal() {
       this.showProductModal = false;
       this.selectedProduct = null;
     },
-    showModal(product) {
-      this.selectedProduct = product;
-      this.showProductModal = true;
+    subscribe() {
+      if (!this.email) {
+        this.errorMessage = "Por favor, insira um e-mail válido.";
+        return;
+      }
+      // Simulação de inscrição na newsletter
+      alert(`Você se inscreveu com o e-mail: ${this.email}`);
+      this.errorMessage = "";
     },
-
-    redirectToHome() {
-      this.$router.push({ name: 'Loja' }); 
-    },
+  },
+  watch: {
+    "$route.params.id": "fetchProduct",
   },
   mounted() {
     this.fetchProduct();
@@ -456,7 +483,6 @@ export default {
 
 /* Responsividade */
 @media (max-width: 1024px) {
-  /* Ajuste no layout para telas menores */
   .product-details {
     flex-direction: column;
     gap: 20px;
@@ -566,6 +592,25 @@ export default {
 
   .newsletter button {
     font-size: 0.9rem;
+  }
+
+  /* Total Combo */
+  .total-price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #28a745;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f1f8f2;
+    border-radius: 10px;
+    border: 2px solid #28a745;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .total-price strong {
+    font-size: 2rem;
+    color: #333;
   }
 }
 </style>
