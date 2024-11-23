@@ -9,9 +9,10 @@ import Chatbot from '../views/Chatbot.vue';
 import Loja from '../views/Loja.vue';
 import Notificacoes from '../views/Notificacoes.vue';
 import Carrinho from '../views/Carrinho.vue';
-import Compra from '../views/Compra.vue';
+import Compra from '../components/Compra.vue';
 import Adiciona from '../views/AdicionaProduto.vue';
 import SobreNos from '../views/SobreNos.vue';
+import FinalizarCompra from '../views/FinalizarCompra.vue';
 
 const routes = [
   {
@@ -61,23 +62,9 @@ const routes = [
   },
   {
     path: "/notificacoes",
+    
     name: "Notificações",
     component: Notificacoes
-  },
-  {
-    path: "/carrinho",
-    name: "Carrinho",
-    component: Carrinho
-  },
-  {
-    path: '/comprar/:id',
-    name: 'Compra',
-    component: Compra
-  },  
-  {
-    path: '/adicionaProduto',
-    name: "Adiciona Produto",
-    component: Adiciona
   }
 ];
 
