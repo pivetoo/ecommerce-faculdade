@@ -6,6 +6,7 @@ namespace Ecommerce.Dominio.IRepository
     {
         Task<Produto> Retornar(long id);
         Task<IEnumerable<Produto>> RetornarTodos();
+        Task<Categoria> RetornarCategoriaPorId(long id);
         Task Incluir(Produto produto);
         Task Atualizar(Produto produto);
         Task Excluir(Produto produto);

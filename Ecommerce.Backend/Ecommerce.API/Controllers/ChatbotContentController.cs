@@ -1,6 +1,5 @@
 ﻿using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IService;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.API.Controllers
@@ -16,7 +15,6 @@ namespace Ecommerce.API.Controllers
             _chatBotService = chatBotService;
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AdicionarConteudo(ChatbotContent content)
         {
@@ -24,7 +22,6 @@ namespace Ecommerce.API.Controllers
             return Ok(adicionar);
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> ListarConteudos()
         {
@@ -32,7 +29,6 @@ namespace Ecommerce.API.Controllers
             return Ok(listar);
         }
 
-        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> AtualizarConteudo(long id, ChatbotContent content)
         {
@@ -40,7 +36,6 @@ namespace Ecommerce.API.Controllers
             return Ok(content);
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
         public async Task<IActionResult> ExcluirConteudo(long id)
         {

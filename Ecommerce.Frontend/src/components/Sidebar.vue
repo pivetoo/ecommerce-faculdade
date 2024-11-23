@@ -5,9 +5,6 @@
     </div>
 
     <nav class="nav flex-column align-items-center mt-3">
-      <router-link to="/loja" class="nav-link py-2">
-        <span class="material-symbols-outlined">shopping_cart</span>
-      </router-link>
       <router-link to="/dashboard" class="nav-link py-2">
         <span class="material-symbols-outlined">grid_view</span>
       </router-link>
@@ -16,6 +13,9 @@
       </router-link>
       <router-link to="/chat-bot" class="nav-link py-2">
         <span class="material-symbols-outlined">smart_toy</span>
+      </router-link>
+      <router-link to="/adicionaProduto" class="nav-link py-2">
+        <span class="material-symbols-outlined">add_shopping_cart</span>
       </router-link>
     </nav>
 

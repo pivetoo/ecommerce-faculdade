@@ -1,6 +1,5 @@
 ﻿using Ecommerce.Dominio.Entities;
 using Ecommerce.Dominio.IService;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.API.Controllers
@@ -16,7 +15,6 @@ namespace Ecommerce.API.Controllers
             _categoriaService = categoriaService;
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CriarCategoria([FromBody] Categoria categoria)
         {
@@ -24,7 +22,6 @@ namespace Ecommerce.API.Controllers
             return Ok(sucesso);
         }
 
-        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> ConsultaCategoriaPorId(long id)
         {
@@ -32,7 +29,6 @@ namespace Ecommerce.API.Controllers
             return Ok(categoria);
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> ListarCategorias()
         {
@@ -40,7 +36,6 @@ namespace Ecommerce.API.Controllers
             return Ok(categorias);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> AtualizarCategoria(long id, [FromBody] Categoria categoria)
         {
@@ -48,7 +43,6 @@ namespace Ecommerce.API.Controllers
             return Ok(sucesso);
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> ExcluirCategoria(long id)
         {

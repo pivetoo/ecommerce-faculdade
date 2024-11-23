@@ -85,7 +85,6 @@ namespace Ecommerce.Repositorio.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Nome")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -333,6 +332,10 @@ namespace Ecommerce.Repositorio.Migrations
                     b.Property<int>("Estoque")
                         .HasColumnType("integer");
 
+                    b.Property<string>("ImagemUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("text");
@@ -358,6 +361,32 @@ namespace Ecommerce.Repositorio.Migrations
                     b.ToTable("Produtos");
                 });
 
+            modelBuilder.Entity("Ecommerce.Dominio.Entities.ProdutoRelacao", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ProdutoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("ProdutoRelacionadoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.HasIndex("ProdutoRelacionadoId");
+
+                    b.ToTable("ProdutoRelacoes");
+                });
+
             modelBuilder.Entity("Ecommerce.Dominio.Entities.Usuario", b =>
                 {
                     b.Property<long>("Id")
@@ -381,7 +410,8 @@ namespace Ecommerce.Repositorio.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ImagemUrl")
-                        .HasColumnType("text");
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
 
                     b.Property<bool>("IsAdmin")
                         .HasColumnType("boolean");
@@ -516,6 +546,25 @@ namespace Ecommerce.Repositorio.Migrations
                         .HasForeignKey("PedidoId");
 
                     b.Navigation("Categoria");
+                });
+
+            modelBuilder.Entity("Ecommerce.Dominio.Entities.ProdutoRelacao", b =>
+                {
+                    b.HasOne("Ecommerce.Dominio.Entities.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecommerce.Dominio.Entities.Produto", "ProdutoRelacionado")
+                        .WithMany()
+                        .HasForeignKey("ProdutoRelacionadoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Produto");
+
+                    b.Navigation("ProdutoRelacionado");
                 });
 
             modelBuilder.Entity("Ecommerce.Dominio.Entities.Carrinho", b =>

@@ -22,10 +22,10 @@ namespace Ecommerce.Application.Services
                 throw new InvalidOperationException("Um usuário com este e-mail já existe.");
             }
 
-            if (!PasswordPolicy.ValidarSenha(usuario.Senha))
-            {
-                throw new InvalidOperationException("A senha não atende aos requisitos de segurança. A senha deve conter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e símbolos.");
-            }
+            //if (!PasswordPolicy.ValidarSenha(usuario.Senha))
+            //{
+            //    throw new InvalidOperationException("A senha não atende aos requisitos de segurança. A senha deve conter pelo menos 8 caracteres, incluindo letras maiúsculas, minúsculas, números e símbolos.");
+            //}
 
             usuario.Senha = PasswordHash.HashPassword(usuario.Senha);
             await _usuarioRepository.Incluir(usuario);
