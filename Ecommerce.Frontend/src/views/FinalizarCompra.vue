@@ -190,6 +190,7 @@ body {
   background-color: #000;
   color: white;
   border: none;
+  
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;

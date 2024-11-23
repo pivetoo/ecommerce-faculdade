@@ -53,6 +53,7 @@ const routes = [
   },
   {
     path: "/notificacoes",
+    
     name: "Notificações",
     component: Notificacoes
   },
