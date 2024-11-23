@@ -62,9 +62,28 @@ const routes = [
   },
   {
     path: "/notificacoes",
-    
     name: "Notificações",
     component: Notificacoes
+  },
+  {
+    path: '/comprar/:id',
+    name: 'Compra',
+    component: Compra
+  },  
+  {
+    path: '/finalizarCompra',
+    name: 'FinalizarCompra',
+    component: FinalizarCompra
+  },  
+  {
+    path: "/carrinho",
+    name: "Carrinho",
+    component: Carrinho
+  },
+  {
+    path: '/adicionaProduto',
+    name: "Adiciona Produto",
+    component: Adiciona
   }
 ];
 
